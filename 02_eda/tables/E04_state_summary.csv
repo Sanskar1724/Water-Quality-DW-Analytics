@@ -1,0 +1,54 @@
+state,region,results,sites,orgs,exc_rate,exc_n
+Wisconsin,Midwest,1345647,2736,19,2.05,27604.0
+Florida,South,334534,11059,95,20.3,67897.0
+Minnesota,Midwest,323494,5214,18,11.65,37699.0
+Washington,West,320018,1547,29,3.25,10390.0
+Virginia,South,129137,1970,6,10.29,13283.0
+Alabama,South,126859,1112,12,17.55,22268.0
+Oregon,West,112814,952,19,1.48,1666.0
+Georgia,South,82536,481,9,19.6,16175.0
+Utah,West,72739,807,5,3.79,2760.0
+North Carolina,South,58613,626,7,15.27,8949.0
+Michigan,Midwest,54287,709,19,3.68,1998.0
+South Carolina,South,52893,577,6,15.13,8004.0
+Indiana,Midwest,51306,1326,5,7.62,3910.0
+Maryland,South,49073,271,9,7.12,3496.0
+New York,Northeast,43112,404,18,5.74,2476.0
+Tennessee,South,42121,1805,5,2.78,1172.0
+New Jersey,Northeast,40992,775,18,13.53,5546.0
+Mississippi,South,37845,350,5,28.47,10773.0
+Oklahoma,South,35489,531,25,14.88,5279.0
+Arizona,West,33114,776,18,4.38,1452.0
+Pennsylvania,Northeast,29995,1211,8,7.18,2154.0
+Arkansas,South,29755,512,8,13.87,4128.0
+Colorado,West,28176,1097,16,6.12,1724.0
+Iowa,Midwest,24676,597,6,6.76,1667.0
+Texas,South,23311,1045,7,8.1,1889.0
+Hawaii,West,22590,203,3,0.73,164.0
+New Hampshire,Northeast,22108,1438,6,15.55,3437.0
+Connecticut,Northeast,22032,525,9,5.16,1137.0
+California,West,20900,454,43,8.95,1871.0
+New Mexico,West,20836,269,17,7.47,1556.0
+Montana,West,19864,774,14,5.52,1096.0
+North Dakota,Midwest,19183,308,6,7.75,1487.0
+Nebraska,Midwest,17591,202,2,13.36,2350.0
+Ohio,Midwest,17461,752,6,5.39,942.0
+Louisiana,South,13078,347,7,38.39,5021.0
+Alaska,West,10787,389,4,2.94,317.0
+Other territory,Territory,8786,137,2,20.28,1782.0
+Massachusetts,Northeast,8091,489,13,10.6,858.0
+Missouri,Midwest,7638,594,5,9.16,700.0
+Delaware,South,6835,245,4,8.62,589.0
+Idaho,West,5933,753,10,2.66,158.0
+District of Columbia,South,5835,45,2,5.35,312.0
+Vermont,Northeast,5828,404,2,5.66,330.0
+Maine,Northeast,5144,296,5,2.88,148.0
+Puerto Rico,Territory,3597,34,1,33.94,1221.0
+Nevada,West,3147,246,7,3.88,122.0
+Wyoming,West,2786,60,5,10.52,293.0
+Kentucky,South,2460,125,5,8.5,209.0
+Kansas,Midwest,1190,62,4,10.67,127.0
+South Dakota,Midwest,1090,48,8,15.23,166.0
+West Virginia,South,508,18,6,5.12,26.0
+Illinois,Midwest,488,10,2,20.49,100.0
+Rhode Island,Northeast,211,11,3,13.27,28.0

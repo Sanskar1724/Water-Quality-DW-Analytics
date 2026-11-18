@@ -1,0 +1,7 @@
+,Temperature,Dissolved oxygen,pH,Turbidity,Conductivity,Nitrate
+Temperature,1.0,-0.632,-0.027,-0.052,0.093,-0.205
+Dissolved oxygen,-0.632,1.0,0.329,0.082,-0.148,0.15
+pH,-0.027,0.329,1.0,-0.002,0.447,0.124
+Turbidity,-0.052,0.082,-0.002,1.0,0.069,0.041
+Conductivity,0.093,-0.148,0.447,0.069,1.0,0.095
+Nitrate,-0.205,0.15,0.124,0.041,0.095,1.0

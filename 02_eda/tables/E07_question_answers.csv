@@ -1,0 +1,9 @@
+Q,Question,Evidence,EDA answer
+Q1,Water-quality measurements over time,"E3a, E3e","Peak month 2025-05 (486,189); lowest 2025-12 (23,189); see E3e for parameter trends"
+Q2,Compare parameters across sites,E04_Q2 table,Spread of site medians (P10–P90) per parameter
+Q3,Sites with extreme / poor quality,"E04_Q3 tables, E4a",Worst sites listed per parameter (≥30 results); % of poor sites per parameter
+Q4,Seasonal variation,E3f,Seasonal medians and exceedance rates per parameter
+Q5,"Relationships among pH, DO, turbidity, nutrients",E6,Temperature–DO Spearman = -0.63
+Q6,Exceedance / high-risk observations,E5,Highest exceedance rate: Dissolved oxygen (18.2%); most exceedances by count: Dissolved oxygen
+Q7,Site and organization sampling coverage,"E4c, E04_Q7",Top 10 orgs supply 63.7% of results
+Q8,Compare monitoring-location types,E4d,Surface vs ground vs ocean water (proxy until the Station file adds site types)

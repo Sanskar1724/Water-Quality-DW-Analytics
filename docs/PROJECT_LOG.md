@@ -134,3 +134,17 @@ Working rule: **explain each step first, then build it, then walk through the re
   3. Two small code errors (a SQL reserved word, nested quotes) were fixed.
 - **Decision rule for imputation (fixed before seeing results):** use the best model only if it is ≥ 70% accurate on the matching test **and** at least +10 points better than the mode; otherwise *Not Reported*. Two tests were used: random (organizations seen) and grouped (organizations never seen).
 - **Files:** `01_profiling_curation/02_data_curation_imputation.ipynb`, `tables/C*.csv`, `figures/C*.png`, `GUIDE.md` (Step 2 section), `_build/`
+
+## 2026-11-18: Step 3, exploratory data analysis (EDA)
+- **What:** Built and ran `02_eda/01_exploratory_data_analysis.ipynb` on the **3,772,033 analysis-ready rows** (80 seconds). It covers all five EDA parts of the brief (numerical, categorical, temporal, geographic/entity, outcome) plus parameter relationships, with 10 chart files (~20 charts) and 30 tables, an inference under every chart, and `02_eda/GUIDE.md` (18 terms).
+- **Key findings:**
+  - **Typical water:** 17.3 °C, DO 8.0 mg/L, pH 7.76, turbidity 4.3 NTU, conductivity 107 µS/cm, nitrate 0.40 mg/L. Turbidity, conductivity and nitrate are strongly right-skewed.
+  - **Seasons (Q4):** DO exceedance 7.7% in winter → **25.9% in summer**; median DO 9.7 → 7.3 mg/L. The same pattern appears in 2024 and 2025.
+  - **Places (Q3):** South region exceedance 16.4% vs Midwest 4.2%. Florida 20.3%, Georgia 19.6%, Alabama 17.6%; Wisconsin (most data) 2.1%. 14% of DO sites are "poor" (≥ 50% exceedance).
+  - **Relationships (Q5):** temperature–DO Spearman **−0.63** (matches the oxygen saturation curve); pH–DO +0.33; pH–conductivity +0.45; turbidity unrelated.
+  - **Outcomes (Q6):** 292,571 exceedances (7.8%), 97,752 high-risk; DO is first by count and rate (18.2%).
+  - **Coverage (Q7):** the top 10 organizations = 63.7% of results; 55 of 468 organizations cover all 24 months.
+  - **Location types (Q8, water-type proxy):** groundwater DO median 0.57 mg/L and nitrate 2.4 mg/L; ocean water conductivity 41,825 µS/cm. Some exceedances are natural.
+  - **Late 2025 is incomplete in WQP**, so 2024 vs 2025 totals are not a trend.
+- **Fixed during the work:** nested quotes in the build script, and the SQL reserved word `months`. Run logs (`*.log`) are now excluded from git.
+- **Files:** `02_eda/` (notebook, `figures/`, `tables/`, `GUIDE.md`, `_build/`)

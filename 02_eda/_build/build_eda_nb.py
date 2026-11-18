@@ -223,7 +223,7 @@ poor['% poor (≥50% exceed)'] = (poor.poor_sites / poor.sites * 100).round(1); 
 stt = q('''SELECT state, region, count(*) results, count(DISTINCT site) sites, count(DISTINCT org) orgs, avg(exceedance_flag) * 100 exc_rate,
                   sum(exceedance_flag) exc_n FROM a WHERE state NOT IN ('Unknown') GROUP BY ALL ORDER BY results DESC''')
 save_tab(stt.round(2), '04_state_summary')
-orgc = q('''SELECT org, count(*) results, count(DISTINCT site) sites, count(DISTINCT param) params, count(DISTINCT strftime(dt, '%Y-%m')) months,
+orgc = q('''SELECT org, count(*) results, count(DISTINCT site) sites, count(DISTINCT param) params, count(DISTINCT strftime(dt, '%Y-%m')) AS months,
                    count(DISTINCT state) states, avg(exceedance_flag) * 100 exc_rate FROM a GROUP BY org ORDER BY results DESC''')
 display(save_tab(orgc.head(15).round(2), '04_Q7_org_coverage'))
 covq = pd.DataFrame({'Value': {'Organizations': len(orgc), 'Orgs covering all 24 months': int((orgc.months == 24).sum()),

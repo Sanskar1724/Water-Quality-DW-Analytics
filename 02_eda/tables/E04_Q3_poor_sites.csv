@@ -1,0 +1,7 @@
+param,sites,poor_sites,% poor (≥50% exceed)
+Temperature,5281,113,2.1
+Dissolved oxygen,4237,592,14.0
+pH,4070,186,4.6
+Turbidity,1371,68,5.0
+Conductivity,447,57,12.8
+Nitrate,338,0,0.0

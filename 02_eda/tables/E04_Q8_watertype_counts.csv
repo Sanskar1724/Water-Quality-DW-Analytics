@@ -1,0 +1,4 @@
+water_type,Temperature,Dissolved oxygen,pH,Turbidity,Conductivity,Nitrate
+Groundwater,6196.0,5409.0,6250.0,3915.0,1055.0,710.0
+Ocean Water,2452.0,1319.0,1329.0,163.0,8.0,
+Surface Water,267209.0,231183.0,222908.0,92414.0,10230.0,11169.0
