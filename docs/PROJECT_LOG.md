@@ -148,3 +148,37 @@ Working rule: **explain each step first, then build it, then walk through the re
   - **Late 2025 is incomplete in WQP**, so 2024 vs 2025 totals are not a trend.
 - **Fixed during the work:** nested quotes in the build script, and the SQL reserved word `months`. Run logs (`*.log`) are now excluded from git.
 - **Files:** `02_eda/` (notebook, `figures/`, `tables/`, `GUIDE.md`, `_build/`)
+
+## 2026-11-19: Step 5, dimensional model
+- **What:** Wrote `04_dimensional_model/DESIGN.md` and `GUIDE.md`: the grain declaration, 5 dimensions with sizes and hierarchies, star / snowflake / fact-constellation diagrams, an 8-criterion comparison, and the selected model.
+- **Decision:** a **fact constellation with star-shaped conformed dimensions**: `FactWaterQualityResult` (one row per result, 3.77M) plus `FactSiteMonthlyWaterQuality` (site × parameter × month, ~996K). Daily summaries are kept out of the detail fact (a different grain).
+
+## 2026-11-19: Step 6, batch data warehouse (PostgreSQL in Docker)
+- **What:** Built `05_dw_batch/`: `docker-compose.yml` (PostgreSQL 16, port 5433), 5 SQL files (schema, static dimensions, per-batch load, constraints/indexes, 8 analytical queries), the ETL program `etl/etl_batch.py` (reset / initial / incremental / validate / queries), a demo notebook builder and `GUIDE.md`.
+- **Results (full run from the command line, verified):**
+
+| Item | Result |
+|---|---|
+| Initial load (Jan 2024 – Nov 2025) | 3,748,844 facts, 49,218 sites, 926 org/method combinations, **225 s** |
+| Incremental load (Dec 2025) | 23,189 facts, **53 new sites**, 2 new org/method combinations, **13 s**, no rebuild |
+| Final warehouse | 3,772,033 facts (= all curated analysis-ready rows) + 995,875 monthly rows |
+| Validation | **11 of 11 checks PASS** (no orphans, no duplicates, monthly = detail, value sums equal) |
+| Query times | 8 queries, about 1–7 s each; monthly trend **181 ms from the aggregate fact vs ~6,500 ms from the detail fact (≈36× faster)** |
+
+- **Problems met and fixed:**
+  1. A null-safe join blocked hash joins (fact insert > 10 min). Blanks became "Not Reported" so plain `=` joins could be used.
+  2. No statistics on freshly loaded tables. `ANALYZE` now runs after staging and after the dimension inserts.
+  3. A "skip already loaded" check on the table being filled scanned it repeatedly. It was replaced by a dedupe step in staging.
+  4. Smaller fixes: a semicolon in text split a SQL statement, a pandas `loc` name clash, UTF-8 client encoding, and a header comment parsed as a query name.
+- **Not finished:** the demo notebook `batch_dw_demo.ipynb` still needs a complete run to save its outputs. The last run was stopped on purpose at the end of the session. Its inference script is ready (`_build/fill_batch_inferences.py`).
+
+## 2026-11-19: Step 8, real-time DW (code written, not yet run)
+- **What:** Wrote `07_dw_realtime/`: `docker-compose.yml` (Kafka 3.8.1 KRaft, ClickHouse 24.8, Spark 3.5.3, Grafana 11.3), `clickhouse/init.sql` (events, window_agg, rejected), `spark/stream_job.py` (parse → 5 validation rules → derived exceedance / high-risk / alert level → ClickHouse; 1-hour event-time windows with a 2-hour watermark), `producer/producer.py` (replays Dec 2025 in time order, **SIMULATION**, optional invalid-event injection), and a Grafana dashboard (16 panels: the 8 required KPIs + latency, rejected, alert map). All Docker images are downloaded.
+- **Not finished:** the first live run and its fixes, screenshots, and inferences.
+
+## 2026-11-19: Session stopped here (resume point)
+**Next steps, in order:**
+1. Start PostgreSQL (`docker compose -f 05_dw_batch/docker-compose.yml up -d`), run `05_dw_batch/batch_dw_demo.ipynb` fully (~7 min), then run `_build/fill_batch_inferences.py` on it. Push.
+2. Stop PostgreSQL, start `07_dw_realtime`, run the producer, fix issues, capture Grafana screenshots, write inferences. Push.
+3. Step 4 feature selection → Step 10 decision tree + association rules (+ regression).
+4. Step 9 OLAP + Power BI dashboard + 10 findings. Step 7 distributed (Citus). Step 11 architecture comparison. Step 12 PPT.

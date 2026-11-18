@@ -1,0 +1,666 @@
+{
+  "uid": "wq-realtime",
+  "title": "Water Quality \u00b7 Real-Time Replay (SIMULATION)",
+  "tags": [
+    "water-quality",
+    "realtime"
+  ],
+  "timezone": "browser",
+  "refresh": "5s",
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "schemaVersion": 39,
+  "version": 1,
+  "panels": [
+    {
+      "id": 1,
+      "type": "text",
+      "title": "",
+      "description": "",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 3
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "## \ud83d\udd34 SIMULATION: historical Water Quality Portal results (December 2025) **replayed in time order** as live events\nPython producer \u2192 **Kafka** \u2192 **Spark Structured Streaming** (validate, derive exceedance / high-risk, 1-hour event-time windows) \u2192 **ClickHouse** \u2192 **Grafana** (refresh 5 s). Not a live feed."
+      }
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Results received",
+      "description": "All validated events stored in ClickHouse",
+      "gridPos": {
+        "x": 0,
+        "y": 3,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT count() FROM wq_rt.events"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "blue"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "KPI 1 \u00b7 Results / minute (now)",
+      "description": "Events ingested in the last 60 seconds of replay",
+      "gridPos": {
+        "x": 4,
+        "y": 3,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT count() FROM wq_rt.events WHERE ingested_at > now64(3) - INTERVAL 60 SECOND"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "purple"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "KPI 4 \u00b7 Exceedances",
+      "description": "Results breaking the documented exceedance threshold",
+      "gridPos": {
+        "x": 8,
+        "y": 3,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT sum(exceedance_flag) FROM wq_rt.events"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "orange"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": "stat",
+      "title": "KPI 3 \u00b7 High-risk observations",
+      "description": "Results breaking the stricter high-risk threshold",
+      "gridPos": {
+        "x": 12,
+        "y": 3,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT sum(high_risk_flag) FROM wq_rt.events"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "red"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 6,
+      "type": "stat",
+      "title": "Rejected by validation",
+      "description": "Events that failed Spark validation rules",
+      "gridPos": {
+        "x": 16,
+        "y": 3,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT count() FROM wq_rt.rejected"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "dark-red"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 7,
+      "type": "stat",
+      "title": "Pipeline latency (median, s)",
+      "description": "Producer send \u2192 stored in ClickHouse",
+      "gridPos": {
+        "x": 20,
+        "y": 3,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT round(quantile(0.5)(dateDiff('millisecond', produced_at, ingested_at)) / 1000, 2) FROM wq_rt.events WHERE ingested_at > now64(3) - INTERVAL 5 MINUTE"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "green"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "KPI 1 \u00b7 Results per minute during replay (10-second buckets \u00d7 6)",
+      "description": "",
+      "gridPos": {
+        "x": 0,
+        "y": 7,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 0,
+          "queryType": "timeseries",
+          "rawSql": "SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, count() * 6 AS results_per_minute FROM wq_rt.events WHERE ingested_at > now64(3) - INTERVAL 30 MINUTE GROUP BY time ORDER BY time"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "bars",
+            "fillOpacity": 60
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 9,
+      "type": "timeseries",
+      "title": "KPI 4 \u00b7 Exceedances per 10 s by parameter",
+      "description": "",
+      "gridPos": {
+        "x": 12,
+        "y": 7,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 0,
+          "queryType": "timeseries",
+          "rawSql": "SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, characteristic, sum(exceedance_flag) AS exceedances FROM wq_rt.events WHERE ingested_at > now64(3) - INTERVAL 30 MINUTE GROUP BY time, characteristic ORDER BY time"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "type": "table",
+      "title": "KPI 2 \u00b7 Current parameter values (latest replayed result)",
+      "description": "",
+      "gridPos": {
+        "x": 0,
+        "y": 15,
+        "w": 9,
+        "h": 8
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT characteristic AS parameter, round(argMax(result_value, (event_time, ingested_at)), 2) AS latest_value, any(unit) AS unit, argMax(site_id, (event_time, ingested_at)) AS site, max(event_time) AS sample_time FROM wq_rt.events GROUP BY characteristic ORDER BY parameter"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "type": "bargauge",
+      "title": "KPI 6 \u00b7 Parameter coverage (results and sites)",
+      "description": "",
+      "gridPos": {
+        "x": 9,
+        "y": 15,
+        "w": 7,
+        "h": 8
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT characteristic, count() AS results FROM wq_rt.events GROUP BY characteristic ORDER BY results DESC"
+        }
+      ],
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": true
+        }
+      }
+    },
+    {
+      "id": 12,
+      "type": "table",
+      "title": "KPI 5 \u00b7 Top monitored sites",
+      "description": "",
+      "gridPos": {
+        "x": 16,
+        "y": 15,
+        "w": 8,
+        "h": 8
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT site_id, any(state) AS state, count() AS results, uniqExact(characteristic) AS parameters, round(100 * avg(exceedance_flag), 1) AS exceedance_pct FROM wq_rt.events GROUP BY site_id ORDER BY results DESC LIMIT 15"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "type": "table",
+      "title": "KPI 7 \u00b7 Poor-quality sites (\u2265 10 results, \u2265 50% exceedance)",
+      "description": "",
+      "gridPos": {
+        "x": 0,
+        "y": 23,
+        "w": 12,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT site_id, any(state) AS state, count() AS results, sum(exceedance_flag) AS exceedances, round(100 * avg(exceedance_flag), 1) AS exceedance_pct, groupUniqArray(characteristic) AS parameters FROM wq_rt.events GROUP BY site_id HAVING results >= 10 AND exceedance_pct >= 50 ORDER BY exceedance_pct DESC, results DESC LIMIT 20"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "type": "table",
+      "title": "KPI 8 \u00b7 ALERTS: latest high-risk results",
+      "description": "",
+      "gridPos": {
+        "x": 12,
+        "y": 23,
+        "w": 12,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT ingested_at AS received, event_time AS sampled, site_id, state, characteristic, round(result_value, 2) AS value, unit, alert_level FROM wq_rt.events WHERE high_risk_flag = 1 ORDER BY ingested_at DESC LIMIT 25"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert_level"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "type": "timeseries",
+      "title": "Spark event-time windows: exceedance % per sample hour (watermarked aggregates)",
+      "description": "",
+      "gridPos": {
+        "x": 0,
+        "y": 32,
+        "w": 14,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 0,
+          "queryType": "timeseries",
+          "rawSql": "SELECT window_start AS time, characteristic, round(100 * sum(exceedances) / sum(results), 1) AS exceedance_pct FROM wq_rt.window_agg FINAL GROUP BY time, characteristic ORDER BY time"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "type": "geomap",
+      "title": "High-risk alert locations",
+      "description": "",
+      "gridPos": {
+        "x": 14,
+        "y": 32,
+        "w": 10,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "wq-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "wq-clickhouse"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT site_id, any(latitude) AS latitude, any(longitude) AS longitude, count() AS alerts FROM wq_rt.events WHERE high_risk_flag = 1 AND latitude IS NOT NULL GROUP BY site_id"
+        }
+      ],
+      "options": {
+        "view": {
+          "id": "coords",
+          "lat": 39,
+          "lon": -97,
+          "zoom": 3
+        },
+        "layers": [
+          {
+            "type": "markers",
+            "config": {
+              "style": {
+                "color": {
+                  "fixed": "red"
+                },
+                "size": {
+                  "fixed": 4
+                }
+              }
+            },
+            "location": {
+              "mode": "coords",
+              "latitude": "latitude",
+              "longitude": "longitude"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

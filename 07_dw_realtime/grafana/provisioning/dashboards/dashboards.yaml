@@ -1,0 +1,7 @@
+apiVersion: 1
+providers:
+  - name: water-quality
+    folder: Water Quality
+    type: file
+    options:
+      path: /var/lib/grafana/dashboards

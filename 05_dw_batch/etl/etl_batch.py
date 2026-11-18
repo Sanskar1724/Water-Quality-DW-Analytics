@@ -84,11 +84,11 @@ def extract_to_staging(con, batch, start, end):
 def load(batch, mode, start, end, con=None):
     """Full ETL for one batch, with timing of each stage and an audit row in dw.etl_load_log."""
     con = con or connect(); timings = {}; t0 = time.time(); started = pd.Timestamp.now()
-    before = q(con, '''SELECT (SELECT count(*) FROM dw.dim_monitoring_location) loc, (SELECT count(*) FROM dw.dim_organization_method) om,
+    before = q(con, '''SELECT (SELECT count(*) FROM dw.dim_monitoring_location) n_loc, (SELECT count(*) FROM dw.dim_organization_method) om,
                               (SELECT count(*) FROM dw.fact_water_quality_result) fact''').iloc[0]
     t = time.time(); staged = extract_to_staging(con, batch, start, end); timings['1. Extract → staging'] = time.time() - t
     t = time.time(); run_sql_file(con, '03_load_batch.sql', batch); timings['2. DQ rules, dimensions, facts, monthly fact'] = time.time() - t
-    after = q(con, f'''SELECT (SELECT count(*) FROM dw.dim_monitoring_location) loc, (SELECT count(*) FROM dw.dim_organization_method) om,
+    after = q(con, f'''SELECT (SELECT count(*) FROM dw.dim_monitoring_location) n_loc, (SELECT count(*) FROM dw.dim_organization_method) om,
                               (SELECT count(*) FROM dw.fact_water_quality_result) fact,
                               (SELECT count(*) FROM stg.wq_results WHERE load_batch_id = {batch}) staged_after,
                               (SELECT count(*) FROM dw.fact_site_monthly_water_quality) monthly''').iloc[0]
@@ -98,7 +98,7 @@ def load(batch, mode, start, end, con=None):
         with con.cursor() as cur: cur.execute('ANALYZE dw.fact_water_quality_result')
     secs = time.time() - t0
     stats = dict(load_batch_id=batch, load_mode=mode, period_start=start, period_end=end, staged_rows=staged,
-                 rejected_rows=int(staged - after.staged_after), new_locations=int(after.loc - before.loc),
+                 rejected_rows=int(staged - after.staged_after), new_locations=int(after.n_loc - before.n_loc),
                  new_org_methods=int(after.om - before.om), fact_rows_inserted=int(after.fact - before.fact),
                  monthly_rows=int(after.monthly), started_at=started, finished_at=pd.Timestamp.now(), seconds=round(secs, 1))
     with con.cursor() as cur:

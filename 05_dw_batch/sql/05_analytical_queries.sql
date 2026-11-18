@@ -1,5 +1,5 @@
 -- Historical analytical queries on the batch warehouse.
--- Each block starts with "-- name: <id> | <question>" so etl_batch.py can run and time them.
+-- Each query below starts with a "name" marker line (query id | question) so etl_batch.py can run and time it.
 
 -- name: Q1_monthly_trend | Q1: results, sites and exceedance rate per month
 SELECT d.year_month, count(*) AS results, count(DISTINCT f.location_key) AS sites,

@@ -27,6 +27,11 @@ SELECT DISTINCT organization, provider, sample_type_group, equipment_group, resu
 FROM stg.wq_results WHERE load_batch_id = :batch
 ON CONFLICT DO NOTHING;
 
+-- 2c. Fresh statistics on the dimensions just extended, so the fact load uses fast hash joins
+ANALYZE dw.dim_monitoring_location;
+ANALYZE dw.dim_organization_method;
+ANALYZE dw.fact_water_quality_result;
+
 -- 3a. Safe re-runs: drop staged rows whose result is already in the warehouse (uses the unique result_id index)
 DELETE FROM stg.wq_results s USING dw.fact_water_quality_result f
 WHERE s.load_batch_id = :batch AND f.result_id = s.result_id;
