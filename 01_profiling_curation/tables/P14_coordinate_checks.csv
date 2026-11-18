@@ -1,0 +1,7 @@
+,Rows,% of rows
+missing,8477,0.171
+unreadable,0,0.0
+zero,343,0.007
+out_of_range,0,0.0
+positive_lon_suspect,1058,0.021
+near_null_island,261,0.005

@@ -1,0 +1,8 @@
+,Rows,% of rows
+unreadable_date,0,0.0
+outside_period,0,0.0
+time_missing,1423442,28.709
+midnight_000000,539046,10.872
+time_without_zone,0,0.0
+has_end_date,2669509,53.84
+end_before_start,94,0.002

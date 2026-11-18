@@ -1,0 +1,7 @@
+param,Censored (< or >),Equals-sign prefix (fixable),Missing (non-detect noted),Numeric,Text placeholder,Total,% not numeric
+Temperature,6.0,0.0,657.0,2843927.0,17437.0,2862027.0,0.63
+Dissolved oxygen,40.0,0.0,838.0,771358.0,931.0,773167.0,0.23
+pH,7.0,4952.0,907.0,732829.0,1926.0,740621.0,1.05
+Turbidity,1023.0,4756.0,3138.0,362125.0,1172.0,372214.0,2.71
+Conductivity,23.0,0.0,116.0,156135.0,638.0,156912.0,0.5
+Nitrate,180.0,0.0,6618.0,46318.0,181.0,53297.0,13.09

@@ -75,3 +75,36 @@ Working rule: **explain each step first, then build it, then walk through the re
 - **How:** Files were moved with `git mv`, which keeps their full change history. `.gitignore` was updated so the dataset stays excluded at the new paths and small result tables (`tables/*.csv`) are still uploaded.
 - **Also:** The trial-run charts and tables (600K rows, 2024 only) are now uploaded **inside the archive**, clearly labelled as a trial in `00_previous_work/GUIDE.md`. The README was rewritten to explain the new layout.
 - **Files:** `00_previous_work/` (+ `GUIDE.md`), `README.md`, `.gitignore`
+
+## 2026-11-18: Step 0, setup
+- **What:** Created the step folders (`01_profiling_curation` … `10_architecture_eval`, `ppt`). Installed and listed all libraries in `requirements.txt` (DuckDB, scikit-learn, mlxtend, statsmodels, psycopg2, kafka-python, clickhouse-connect, python-pptx).
+- **What:** Made a one-time compressed copy of the dataset: `data/raw_parquet/wq_raw.parquet`. It has the same 4,958,238 rows × 81 columns, with all values kept as original text. **2.59 GB → 228 MB** in 61 seconds. It is not uploaded to GitHub.
+- **Why:** The laptop has 7.7 GB of RAM. DuckDB plus Parquet let us query the full file without loading it all into memory.
+
+## 2026-11-18: Step 1, data profiling on the full dataset
+- **What:** Built and ran `01_profiling_curation/01_data_profiling.ipynb` on **all 4.96M rows** (about 40 seconds). It has 17 sections, 16 charts and 31 tables, and every chart has a written inference. Also wrote `01_profiling_curation/GUIDE.md` (30 terms explained simply).
+- **Key results:**
+
+| Check | Result |
+|---|---|
+| Complete columns | 11 of 81; 5 columns completely empty |
+| Core identifiers (site, date, parameter, organization) | 0% missing |
+| Measured value missing | 0.25% (12,274), all with a non-detect note |
+| Time of day missing | 28.7% (1.42M) |
+| Water type / collection method / fraction missing | 78% / 63% / 58% |
+| Exact duplicates / repeated result IDs | 0 / 0 |
+| Likely real duplicates (field visits) | 186,497 (3.8%) |
+| Daily-summary rows (mean/min/max/7DADM), a different grain | 921,023 (18.6%) |
+| Rows needing unit conversion | 902,542 (18.2%), mainly 885K temperatures in °F |
+| Unusable units (e.g. pH in mV) | 42,481 (0.9%) |
+| Physically impossible values | 14,780 (0.3%) |
+| Quality-control rows / rejected / suspect | 29,108 / 175 / 91,600 |
+| Sites with valid coordinates | 49,063 of 50,476 (97.2%) |
+| Busiest 10% of sites hold | 76.2% of results |
+
+- **Corrections made during the work (recorded for honesty):**
+  1. The first duplicate check flagged 25.9% of rows. Investigation showed most were **logger readings without a time** (Wisconsin DNR alone ≈ 380K) and **depth profiles**, not duplicates. The check was redesigned to separate likely duplicates from genuine repeated readings.
+  2. pH units were first counted wrongly. 708K pH rows store the unit as the text `None` (correct, since pH has no unit), and the rule was fixed.
+  3. The coordinate check was tightened after the map showed US sites appearing in Asia (missing minus sign): 20 sites, 1,058 rows.
+- **Why it matters:** The issue list (`tables/P16_profiling_issue_list.csv`) is the input to Step 2. Missing labels follow organization patterns (MAR), which is the justification for Decision Tree / Naive Bayes imputation.
+- **Files:** `01_profiling_curation/` (notebook, `figures/`, `tables/`, `GUIDE.md`, `_build/`), `requirements.txt`

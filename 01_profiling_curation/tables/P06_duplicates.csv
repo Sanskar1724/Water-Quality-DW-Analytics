@@ -1,0 +1,8 @@
+Check,Rows,% of rows
+Exact duplicate (all 81 columns identical),0,0.0
+Repeated ResultIdentifier,0,0.0
+Same value repeated inside one FIELD-VISIT activity (likely duplicate),186497,3.761
+Same value repeated inside one LOGGER activity (separate readings),78570,1.585
+"Same-value repeat, different activities, time known",454629,9.169
+"Same-value repeat, different activities, time MISSING (likely separate readings)",373617,7.535
+"Conflicting repeat in field visits: same key, different value (rows involved)",559272,11.28

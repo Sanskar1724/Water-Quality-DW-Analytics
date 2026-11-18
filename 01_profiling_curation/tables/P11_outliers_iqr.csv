@@ -1,0 +1,7 @@
+Parameter,Q1,Q3,IQR,Upper fence (3×IQR),Mild outliers (1.5×IQR),Extreme outliers (3×IQR),% extreme
+Temperature,10.858,19.9,9.042,47.026,13525,11875,0.6
+Dissolved oxygen,6.16,9.86,3.7,20.961,42457,1294,0.17
+pH,7.26,8.2,0.94,11.02,17298,3097,0.44
+Turbidity,1.48,10.3,8.82,36.76,38153,24020,6.94
+Conductivity,58.3,373.7,315.4,1319.9,14568,10668,7.59
+Nitrate,0.1,1.6,1.5,6.1,5198,2993,7.03

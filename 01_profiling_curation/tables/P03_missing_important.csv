@@ -1,0 +1,19 @@
+Column,Meaning,Missing,MissingPct
+ActivityMediaSubdivisionName,Water type (surface/ground…),3869255,78.04
+ActivityDepthHeightMeasure/MeasureValue,Sampling depth,3801149,76.66
+SampleCollectionMethod/MethodName,Collection method,3118448,62.89
+ResultSampleFractionText,Sample fraction,2894690,58.38
+SampleCollectionEquipmentName,Collection equipment,2681551,54.08
+ActivityStartTime/Time,Sampling time,1423442,28.71
+ActivityStartTime/TimeZoneCode,Time zone,1423442,28.71
+ResultMeasureValue,Measured value,12274,0.25
+ActivityLocation/LongitudeMeasure,Longitude,8477,0.17
+ActivityLocation/LatitudeMeasure,Latitude,8477,0.17
+ResultMeasure/MeasureUnitCode (excl. pH),Unit (non-pH only),6751,0.16
+ResultMeasure/MeasureUnitCode,Unit (all parameters),7338,0.15
+ActivityStartDate,Sampling date,0,0.0
+MonitoringLocationIdentifier,Monitoring site,0,0.0
+OrganizationIdentifier,Organization,0,0.0
+CharacteristicName,Parameter,0,0.0
+ResultStatusIdentifier,Result status,0,0.0
+ActivityTypeCode,Activity type,0,0.0

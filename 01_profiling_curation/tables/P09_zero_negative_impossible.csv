@@ -1,0 +1,7 @@
+Parameter,Main unit,Possible range,Numeric rows,Zero,Negative,Impossible,% impossible,Raw min,Raw max
+Temperature,°C,-5 to 50,1971361,3008,4245,11115,0.564,-14.70722222,25430.0
+Dissolved oxygen,mg/L (ppm),0 to 25,762330,6192,555,1712,0.225,-2.0,6936396.0
+pH,pH units,0 to 14,703799,81,81,233,0.033,-24.43,8325.0
+Turbidity,NTU/FNU,0 to ∞,345949,2923,1631,1631,0.471,-6419.25,97225.28
+Conductivity,µS/cm (µmho/cm),0 to ∞,140631,39,56,56,0.04,-0.3,220591.0
+Nitrate,mg/L,0 to ∞,42557,1003,33,33,0.078,-347.59,225.0

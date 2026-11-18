@@ -1,11 +1,27 @@
-# Phase 1 - Data profiling, curation and EDA
+# Core data handling
 pandas>=2.0
 numpy>=1.24
-pyarrow>=12.0        # parquet read/write
+pyarrow>=12.0          # Parquet files
+duckdb>=1.0            # SQL engine that reads the big file without loading it all into RAM
+
+# Charts
 matplotlib>=3.7
 seaborn>=0.12
-scipy>=1.10
-jupyter
 
-# Phase 2 / Phase 3 dependencies will be added when those phases start
-# (psycopg2, sqlalchemy, pyspark, kafka-python, clickhouse-connect, scikit-learn, mlxtend)
+# Statistics & machine learning
+scipy>=1.10
+statsmodels>=0.14      # VIF, regression diagnostics
+scikit-learn>=1.3      # Decision Tree, Naive Bayes, feature selection, regression
+mlxtend>=0.23          # Apriori / FP-Growth association rules
+
+# Warehouses & streaming
+psycopg2-binary>=2.9   # PostgreSQL / Citus
+sqlalchemy>=2.0
+kafka-python>=2.0      # Kafka producer (real-time simulation)
+clickhouse-connect>=0.7
+
+# Notebooks & presentation
+jupyter
+nbformat
+nbconvert
+python-pptx>=0.6       # builds the PPT automatically

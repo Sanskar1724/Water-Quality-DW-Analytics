@@ -1,0 +1,29 @@
+Issue,Field,Count,Planned treatment (Step 2),Reason,% of rows
+Exact duplicate,all columns,0,Remove if any,Same record twice would double-count,0.0
+Repeat inside a field-visit activity,activity+parameter+fraction+statistic+depths+value+unit,186497,"Keep first copy for analysis, flag the rest",In a single visit the same result twice is most likely a duplicate entry,3.761
+Repeat inside a logger activity,"same key, logger activity",78570,Keep (separate readings),Loggers store many readings per activity without a per-result time,1.585
+"Same-value repeat, time missing","site+date+parameter+value, different activities",373617,Keep (separate readings); aggregate to site-day where needed,Logger readings whose time was not reported; deleting would lose real data,7.535
+"Same-value repeat, time known","site+date+time+parameter+value, different activities",454629,"Investigate; keep, flag",Could be co-located instruments or a re-submission,9.169
+Conflicting repeat (field visits),"same key, different value",559272,"Retain all, flag; use the mean per visit in site-level analysis",Replicate readings in one visit; neither value can be preferred,11.28
+Mixed grain (summary rows),StatisticalBaseCode,921023,Separate from single readings (own flag / fact),A daily mean/min/max is a different grain from one reading,18.576
+Quality-control record,ActivityTypeCode,29108,"Retain, exclude from analysis","Tests the equipment, not the water",0.587
+Rejected result,ResultStatusIdentifier,175,Exclude from analysis,Refused by the data provider,0.004
+Suspect value,MeasureQualifierCode,91600,"Retain, exclude from analysis",Flagged suspect by the provider,1.847
+Missing value,ResultMeasureValue,12274,Do NOT impute; exclude from numeric stats,Inventing measurements would fake water quality,0.248
+'=' prefix,ResultMeasureValue,9708,Correct (strip =),Formatting slip; the number is valid,0.196
+Censored value,ResultMeasureValue,1279,Flag; keep the limit separately,"Only a bound, not a measurement",0.026
+Text placeholder,ResultMeasureValue,22285,Exclude from numeric analysis,Carries no measurement,0.449
+Unit needs conversion,ResultMeasure/MeasureUnitCode,902542,"Convert (°F→°C, mS/cm→µS/cm, nitrate µg/L, µeq/L, µmol/L→mg/L)",Values must be in one unit to be compared,18.203
+Unusable unit,ResultMeasure/MeasureUnitCode,42481,"Retain, exclude from numeric analysis",Unit missing or impossible for the parameter (e.g. pH in mV),0.857
+DO as % saturation,ResultMeasure/MeasureUnitCode,9074,"Keep separately, exclude from mg/L analysis",A different measure; converting needs temperature and pressure,0.183
+Impossible value,ResultMeasureValue,14780,"Retain, exclude from analysis","Physically impossible, so an entry or unit error",0.298
+Extreme outlier (3×IQR),ResultMeasureValue,53947,Retain + flag,"May be real events (storms, low oxygen)",1.088
+Missing time of day,ActivityStartTime/Time,1423442,"Impute TimeBand (DT vs NB vs mode), flag IsImputed","Date is known, so the result is still valid; the pattern is learnable",28.709
+Midnight placeholder,ActivityStartTime/Time,9421,Treat as unknown time (discrete visits only),False midnight peak,0.19
+End before start,ActivityEndDate/Time,94,"Retain, no duration derived",Broken event order,0.002
+Missing coordinates,Latitude/Longitude,8477,Region = 'Unknown',Only the map and region analysis lose it,0.171
+Suspect coordinates,Latitude/Longitude,1662,Set to missing (not auto-corrected),True location cannot be confirmed,0.034
+Missing water type,ActivityMediaSubdivisionName,3869255,"Impute (DT vs NB vs mode), flag IsImputed","Learnable from organization, site and activity",78.037
+Missing collection method,SampleCollectionMethod/MethodName,3118448,Impute (DT vs NB vs mode) or Not Reported,Descriptive; decide by imputation accuracy,62.894
+Missing sample fraction,ResultSampleFractionText,2894690,Impute (DT vs NB vs mode) or Not Reported,Descriptive; decide by imputation accuracy,58.381
+Empty column,5 columns,5,Drop column,No information at all,

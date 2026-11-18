@@ -1,0 +1,82 @@
+Column,NonMissing,Missing,MissingPct,Band
+OrganizationIdentifier,4958238,0,0.0,0% (complete)
+OrganizationFormalName,4958238,0,0.0,0% (complete)
+ActivityIdentifier,4958238,0,0.0,0% (complete)
+ActivityTypeCode,4958238,0,0.0,0% (complete)
+ActivityMediaName,4958238,0,0.0,0% (complete)
+ActivityStartDate,4958238,0,0.0,0% (complete)
+MonitoringLocationIdentifier,4958238,0,0.0,0% (complete)
+CharacteristicName,4958238,0,0.0,0% (complete)
+ResultIdentifier,4958238,0,0.0,0% (complete)
+ResultStatusIdentifier,4958238,0,0.0,0% (complete)
+ProviderName,4958238,0,0.0,0% (complete)
+ResultValueTypeName,4957854,384,0.01,<5%
+ResultMeasure/MeasureUnitCode,4950900,7338,0.15,<5%
+ProjectIdentifier,4950445,7793,0.16,<5%
+ActivityLocation/LongitudeMeasure,4949761,8477,0.17,<5%
+MonitoringLocationName,4949761,8477,0.17,<5%
+ActivityLocation/LatitudeMeasure,4949761,8477,0.17,<5%
+ProjectName,4949761,8477,0.17,<5%
+LastUpdated,4949761,8477,0.17,<5%
+ResultMeasureValue,4945964,12274,0.25,<5%
+ActivityStartTime/Time,3534796,1423442,28.71,5–50%
+ActivityStartTime/TimeZoneCode,3534796,1423442,28.71,5–50%
+ActivityEndDate,2669509,2288729,46.16,5–50%
+ActivityConductingOrganizationText,2573275,2384963,48.1,5–50%
+SampleCollectionEquipmentName,2276687,2681551,54.08,50–<100%
+ActivityEndTime/TimeZoneCode,2084925,2873313,57.95,50–<100%
+ResultSampleFractionText,2063548,2894690,58.38,50–<100%
+ActivityEndTime/Time,2025802,2932436,59.14,50–<100%
+ResultAnalyticalMethod/MethodIdentifierContext,1881844,3076394,62.05,50–<100%
+ResultAnalyticalMethod/MethodName,1881844,3076394,62.05,50–<100%
+ResultAnalyticalMethod/MethodIdentifier,1881844,3076394,62.05,50–<100%
+SampleCollectionMethod/MethodIdentifier,1839790,3118448,62.89,50–<100%
+SampleCollectionMethod/MethodName,1839790,3118448,62.89,50–<100%
+SampleCollectionMethod/MethodIdentifierContext,1839790,3118448,62.89,50–<100%
+AnalysisStartDate,1244039,3714199,74.91,50–<100%
+ActivityDepthHeightMeasure/MeasureValue,1157089,3801149,76.66,50–<100%
+ActivityDepthHeightMeasure/MeasureUnitCode,1157089,3801149,76.66,50–<100%
+ActivityMediaSubdivisionName,1088983,3869255,78.04,50–<100%
+SampleCollectionMethod/MethodDescriptionText,1042446,3915792,78.98,50–<100%
+StatisticalBaseCode,921023,4037215,81.42,50–<100%
+ResultTimeBasisText,887092,4071146,82.11,50–<100%
+ResultAnalyticalMethod/MethodDescriptionText,748573,4209665,84.9,50–<100%
+ResultDepthHeightMeasure/MeasureValue,720988,4237250,85.46,50–<100%
+ResultDepthHeightMeasure/MeasureUnitCode,720988,4237250,85.46,50–<100%
+ResultCommentText,601805,4356433,87.86,50–<100%
+ActivityCommentText,404022,4554216,91.85,50–<100%
+DetectionQuantitationLimitTypeName,257399,4700839,94.81,50–<100%
+DetectionQuantitationLimitMeasure/MeasureUnitCode,257399,4700839,94.81,50–<100%
+DetectionQuantitationLimitMeasure/MeasureValue,257399,4700839,94.81,50–<100%
+ResultDetectionQuantitationLimitUrl,257076,4701162,94.82,50–<100%
+ActivityRelativeDepthName,251395,4706843,94.93,50–<100%
+LaboratoryName,190483,4767755,96.16,50–<100%
+ActivityDepthAltitudeReferencePointText,140561,4817677,97.17,50–<100%
+MethodSpeciationName,127520,4830718,97.43,50–<100%
+MeasureQualifierCode,108732,4849506,97.81,50–<100%
+ActivityTopDepthHeightMeasure/MeasureUnitCode,89938,4868300,98.19,50–<100%
+ActivityBottomDepthHeightMeasure/MeasureUnitCode,89938,4868300,98.19,50–<100%
+ActivityBottomDepthHeightMeasure/MeasureValue,89938,4868300,98.19,50–<100%
+ActivityTopDepthHeightMeasure/MeasureValue,89938,4868300,98.19,50–<100%
+DataQuality/UpperConfidenceLimitValue,55300,4902938,98.88,50–<100%
+DataQuality/LowerConfidenceLimitValue,55300,4902938,98.88,50–<100%
+ResultTemperatureBasisText,17052,4941186,99.66,50–<100%
+HydrologicEvent,15117,4943121,99.7,50–<100%
+ResultDetectionConditionText,15118,4943120,99.7,50–<100%
+HydrologicCondition,8477,4949761,99.83,50–<100%
+USGSPCode,8477,4949761,99.83,50–<100%
+ResultDepthAltitudeReferencePointText,6513,4951725,99.87,50–<100%
+DataQuality/PrecisionValue,3732,4954506,99.92,50–<100%
+ResultWeightBasisText,448,4957790,99.99,50–<100%
+DataQuality/ConfidenceIntervalValue,189,4958049,100.0,50–<100%
+SampleAquifer,9,4958229,100.0,50–<100%
+ResultParticleSizeBasisText,0,4958238,100.0,100% (empty)
+BinaryObjectFileName,1,4958237,100.0,50–<100%
+SampleTissueAnatomyName,0,4958238,100.0,100% (empty)
+SubjectTaxonomicName,0,4958238,100.0,100% (empty)
+DataQuality/BiasValue,124,4958114,100.0,50–<100%
+ResultAnalyticalMethod/MethodUrl,0,4958238,100.0,100% (empty)
+BinaryObjectFileTypeCode,1,4958237,100.0,50–<100%
+ResultLaboratoryCommentText,151,4958087,100.0,50–<100%
+ResultFileUrl,1,4958237,100.0,50–<100%
+LabSamplePreparationUrl,0,4958238,100.0,100% (empty)
