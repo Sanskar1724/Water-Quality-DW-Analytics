@@ -1,0 +1,7 @@
+Parameter,Values,Zero,Negative,BelowMin,AboveMax,Min,Max,AllowedRange
+"Temperature, water",356996,413,729,97,1604,-15.444444444444445,265189.4444444445,-5 to 50
+Dissolved oxygen (DO),84057,648,59,59,157,-0.45,1056.0,0 to 30
+pH,81165,12,16,16,19,-7.5,288.0,0 to 14
+Turbidity,39783,511,214,214,3,-940.0,16915.84,0 to 10000
+Conductivity,21903,11,10,10,295,-0.3,272000000.0,0 to 100000
+Nitrate,5842,169,8,8,7,-347.59,381.0,0 to 100

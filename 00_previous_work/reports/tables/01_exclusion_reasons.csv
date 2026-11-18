@@ -1,0 +1,11 @@
+,Rows,Pct
+Included,528178,88.03
+Invalid / out-of-period date,0,0.0
+Quality-control sample,3814,0.64
+Rejected result status,23,0.0
+Provider-flagged suspect (SUS),12621,2.1
+No numeric value (missing / censored / text),3142,0.52
+Different measure (DO % saturation),857,0.14
+Unconvertible / invalid unit,6113,1.02
+Physically impossible value,2482,0.41
+Logical duplicate,42770,7.13

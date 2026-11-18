@@ -1,0 +1,33 @@
+,QualityProblem,Field,Count,Treatment,Justification,PctOfRawRows
+1,Duplicate record (exact),all 81 columns,0,Remove (keep first copy),"Identical in every source column, so it is the same result loaded twice; keeping it would double-count.",0.0
+2,Repeated source key,ResultIdentifier,0,Investigate / retain,"Same ResultIdentifier but different content. Keep both rows, because the warehouse uses its own surrogate key.",0.0
+3,Non-environmental record (QC),ActivityTypeCode,3814,"Retain, exclude from analysis","Blanks, replicates and calibration checks describe the measurement process, not water quality.",0.636
+4,Unknown dimension/code,ActivityTypeCode = 'Unknown',1691,Map to 'Unknown' member,"Activity type not reported. The result itself is valid, so it is kept.",0.282
+5,Invalid status code,ResultStatusIdentifier = Rejected,24,Exclude from analysis,Data provider rejected the result.,0.004
+6,Not-yet-final status,ResultStatusIdentifier,24051,Retain + flag IsProvisional,"Not rejected, and most recent data is still under review. Flag so it can be filtered in BI.",4.008
+7,Provider-flagged suspect value,MeasureQualifierCode contains SUS,12639,"Retain, exclude from analysis",Data provider marked the value as suspect.,2.106
+8,Missing important field,MediaSubdivision,453299,Map to 'Not Reported' member,"Descriptive attribute. The result is still valid without it, and dropping would lose facts.",75.55
+9,Missing important field,CollectionMethod,354435,Map to 'Not Reported' member,"Descriptive attribute. The result is still valid without it, and dropping would lose facts.",59.072
+10,Missing important field,CollectionEquipment,285102,Map to 'Not Reported' member,"Descriptive attribute. The result is still valid without it, and dropping would lose facts.",47.517
+11,Missing important field,SampleFraction,384833,Map to 'Not Reported' member,"Descriptive attribute. The result is still valid without it, and dropping would lose facts.",64.139
+12,Missing important field,TimeZone,143987,Map to 'Not Reported' member,"Descriptive attribute. The result is still valid without it, and dropping would lose facts.",23.998
+13,Missing important field,ResultMeasureValue,2776,"Retain, exclude from numeric analysis","No value to analyse. 1,518 of these carry a DetectionCondition (non-detect), which is kept for coverage counts.",0.463
+14,Invalid numeric value,ResultMeasureValue '=x' prefix,1143,Correct (strip '='),The number is valid. The '=' is a formatting artefact.,0.19
+15,Invalid numeric value,ResultMeasureValue censored,132,"Flag, exclude from numeric stats","'<x' gives only a bound, not a measurement. Limit kept in CensoredLimit.",0.022
+16,Invalid numeric value,ResultMeasureValue text,358,Exclude from numeric analysis,"Placeholders such as 'Null', 'NF', 'Not Reported' carry no measurement.",0.06
+17,Inconsistent unit,ResultMeasure/MeasureUnitCode,101686,Correct (convert to canonical unit),"°F→°C, mS→µS, NO3→N etc. so values are comparable.",16.948
+18,"Different measure, same name",DO reported in %,875,"Retain, exclude from mg/L analysis","% saturation is not a concentration, so it cannot be converted to mg/L without temperature/pressure.",0.146
+19,Unknown dimension/code,Unit invalid for parameter,6113,"Retain, exclude from numeric analysis","Unit missing or incompatible (e.g. pH in mV), so the value cannot be interpreted.",1.019
+20,Invalid numeric value,ValueStd outside physical range,2489,"Retain, exclude from analysis","Physically impossible values (e.g. pH 25, turbidity < 0) are data-entry or unit errors.",0.415
+21,Invalid timestamp,ActivityStartDate unparseable,0,Exclude,"No date, so the fact cannot be placed in DimDate.",0.0
+22,Invalid timestamp,ActivityStartDate outside study period,0,Exclude,Outside the prescribed 2024-01-01 to 2025-12-31 window.,0.0
+23,Missing important field,ActivityStartTime/Time,143987,"Retain, TimeBand='Unknown'","Date is known, so the result is still usable for daily/monthly analysis.",23.998
+24,Invalid timestamp,Midnight placeholder time (discrete visit),1648,Correct (treat time as unknown),00:00:00 on a discrete field visit almost always means 'not recorded'. Keeping it would create a false midnight peak.,0.275
+25,Missing important field,TimeZone while time present,0,"Retain, UTC left empty",Local hour is still valid. Only the UTC conversion is impossible.,0.0
+26,Invalid timestamp or duration,End date/time earlier than start,11,"Retain, no duration derived","Event ordering is broken, so durations are not computed in Phase 1.",0.002
+27,Incomplete geographic identifier,Latitude/Longitude missing,8477,"Retain, RegionGroup='Unknown'",The result is valid. Only the map and region analysis lose it.,1.413
+28,Incomplete geographic identifier,Lat/Long zero / out of range / non-numeric,48,"Set to missing, RegionGroup='Unknown'",Impossible coordinates.,0.008
+29,Incomplete geographic identifier,Positive longitude at US latitudes,103,Set to missing (not auto-corrected),Probable missing minus sign. Not corrected silently because the true sign cannot be confirmed.,0.017
+30,Duplicate or repeated record (logical),site+datetime+parameter+depth+value,42968,"Retain, exclude from analysis",The same observation reported more than once would bias averages and counts.,7.161
+31,Conflicting repeated record,"same key, different value",89008,Investigate / retain,"Likely replicate readings or depth profiles without depth. Both values are plausible, so neither is preferred.",14.835
+32,Extreme outlier,ValueStd beyond Q1-3IQR / Q3+3IQR,7385,Retain + flag IsExtremeOutlier,"Physically possible extremes are real events (storms, hypoxia) and must stay visible for risk analysis.",1.231

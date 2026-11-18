@@ -68,3 +68,10 @@ Status reported at review: profiling, regression and distributed DW shown. **Pen
 ## 2026-11-18: Implementation plan agreed
 12 steps: setup → profiling → cleaning + DT/NB imputation → EDA → feature selection → dimensional modelling → batch DW → distributed DW → real-time DW → OLAP + dashboard → data mining → architecture evaluation + PPT + demo.
 Working rule: **explain each step first, then build it, then walk through the results**, and log it here with a `GUIDE.md` in its folder.
+
+## 2026-11-18: Repository reorganised (old work archived, new work separate)
+- **What:** Moved **all existing work** into one folder, `00_previous_work/`: the Phase 1 notebooks, the trial-run charts and tables, the data dictionary, the first plan, data notes and the assignment document. Nothing inside was edited. New work will go into numbered folders (`01_…` to `10_…`, `ppt/`) at the top level.
+- **Why:** To avoid mixing two structures. Anyone can see at a glance what was done before and what is new.
+- **How:** Files were moved with `git mv`, which keeps their full change history. `.gitignore` was updated so the dataset stays excluded at the new paths and small result tables (`tables/*.csv`) are still uploaded.
+- **Also:** The trial-run charts and tables (600K rows, 2024 only) are now uploaded **inside the archive**, clearly labelled as a trial in `00_previous_work/GUIDE.md`. The README was rewritten to explain the new layout.
+- **Files:** `00_previous_work/` (+ `GUIDE.md`), `README.md`, `.gitignore`

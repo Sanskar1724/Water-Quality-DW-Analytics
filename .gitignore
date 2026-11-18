@@ -4,14 +4,14 @@
 *.parquet
 *.zip
 resultphyschem/
-data/raw/*
-data/processed/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-!data/README.md
+**/data/raw/*
+**/data/processed/*
+!**/data/raw/.gitkeep
+!**/data/processed/.gitkeep
 
-# Small result tables ARE committed (they are part of the data-quality report)
-!reports/tables/*.csv
+# Small result tables ARE committed (they are evidence for the report),
+# in 00_previous_work/reports/tables/ and in every new step's tables/ folder
+!**/tables/*.csv
 
 # ---- Python / Jupyter ----
 __pycache__/

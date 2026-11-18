@@ -1,0 +1,21 @@
+DerivedAttribute,SourceField(s),Rule
+SampleTypeGroup,ActivityTypeCode,"QC / Logger-Continuous / Field Measurement / Lab Sample / Unknown (keyword grouping, Section 4.2)"
+IsProvisional,ResultStatusIdentifier,"Status in Preliminary, Provisional, Raw, Unreviewed"
+"ParseStatus, ValueNumeric, CensoredLimit",ResultMeasureValue,"Numeric parse, '=' stripped, '<x'/'>x' censored (Section 4.3)"
+"ValueStd, UnitStd, UnitStatus",ResultMeasureValue + Unit + Speciation,Conversion to canonical unit (Section 4.4 table)
+IsImpossible,ValueStd,Outside physical range (Section 4.5)
+"TimeKnown, Hour",ActivityStartTime,Valid HH:MM:SS and not a discrete-visit midnight placeholder
+StartDateTimeLocal / StartDateTimeUTC,Date + Time + TimeZoneCode,"UTC = local − zone offset (EST −5, CDT −5, PDT −7, ...)"
+"CoordinateValid, RegionGroup",Latitude/Longitude,Approximate longitudinal bands (Section 4.7). Phase 2 → state-based
+"IsLogicalDuplicate, HasConflictingValue",Site+datetime+parameter+depth(+value),Section 4.8
+"ExclusionReason, IsAnalysisReady",all of the above,First matching rule (Section 5)
+IsExtremeOutlier,ValueStd,Beyond Q1 − 3·IQR or Q3 + 3·IQR per parameter
+"Year, Quarter, Month, YearMonth, WeekStart, DayOfWeek",ActivityStartDate,Calendar decomposition
+Season,Month,"Meteorological, N. hemisphere: DJF Winter, MAM Spring, JJA Summer, SON Fall"
+TimeBand,Hour,"Night 00–05, Morning 06–11, Afternoon 12–17, Evening 18–23, Unknown"
+ParameterGroup,CharacteristicName,"Physical (Temp, Turbidity, Conductivity), Chemical (pH), Oxygen (DO), Nutrient (Nitrate)"
+ResultBand,ValueStd,Parameter-specific ordered bands (Section 6)
+ExceedanceFlag,ValueStd,Documented regulatory / project thresholds (Section 6)
+HighRiskFlag,ValueStd,Stricter severity thresholds (Section 6)
+SiteDailyAverage,ValueStd,Mean per Site × Date × Characteristic (analysis-ready rows)
+LocationType,(not in result file),Placeholder 'Not Available' until joined with WQP Station data in Phase 2

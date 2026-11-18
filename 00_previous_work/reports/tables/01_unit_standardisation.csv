@@ -1,0 +1,48 @@
+Characteristic,UnitRaw,UnitStatus,Rows
+Conductivity,uS/cm,Standard,15145
+Conductivity,umho/cm,Standard,4026
+Conductivity,mS/cm,Converted,2776
+Conductivity,ms,Unconvertible / invalid unit,130
+Conductivity,uS/m,Converted,32
+Conductivity,,Unconvertible / invalid unit,6
+Conductivity,mho/cm,Converted,5
+Conductivity,ug/L,Unconvertible / invalid unit,5
+Dissolved oxygen (DO),mg/L,Standard,83683
+Dissolved oxygen (DO),%,Different measure,886
+Dissolved oxygen (DO),ppm,Standard,548
+Dissolved oxygen (DO),,Unconvertible / invalid unit,55
+Nitrate,mg/L,Standard,5578
+Nitrate,,Unconvertible / invalid unit,365
+Nitrate,mg/L,Converted,281
+Nitrate,umol,Unconvertible / invalid unit,164
+Nitrate,ueq/L,Converted,137
+Nitrate,ug/L,Converted,120
+Nitrate,umol/L,Converted,52
+Nitrate,ppm,Converted,35
+Nitrate,ppm,Standard,28
+Nitrate,mg/l as N,Standard,23
+Nitrate,mg/l asNO3,Converted,19
+Nitrate,mV,Unconvertible / invalid unit,11
+"Temperature, water",deg C,Standard,258785
+"Temperature, water",deg F,Converted,99554
+"Temperature, water",Deg,Unconvertible / invalid unit,318
+"Temperature, water",,Unconvertible / invalid unit,46
+"Temperature, water",ppm,Unconvertible / invalid unit,1
+Turbidity,NTU,Standard,32911
+Turbidity,FNU,Standard,6010
+Turbidity,NTRU,Standard,641
+Turbidity,JTU,Standard,494
+Turbidity,,Unconvertible / invalid unit,267
+Turbidity,ppm,Unconvertible / invalid unit,127
+Turbidity,cm,Unconvertible / invalid unit,81
+Turbidity,mg/L,Unconvertible / invalid unit,11
+pH,,Standard,78324
+pH,mV,Unconvertible / invalid unit,5200
+pH,std units,Standard,2973
+pH,Mole/L,Unconvertible / invalid unit,63
+pH,std*^*^*^*^*,Standard,42
+pH,#/L,Unconvertible / invalid unit,17
+pH,mg/L,Unconvertible / invalid unit,12
+pH,nu,Standard,6
+pH,deg C,Unconvertible / invalid unit,4
+pH,Molar,Unconvertible / invalid unit,3

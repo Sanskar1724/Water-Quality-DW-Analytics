@@ -1,0 +1,6 @@
+,Rows,PctOfRaw
+1. Raw rows in file,600000,100.0
+2. Exact duplicates removed,0,0.0
+3. Curated rows (1-2),600000,100.0
+"4. Excluded from analysis (flagged, kept)",71822,11.97
+5. Analysis-ready rows (3-4),528178,88.03
