@@ -108,3 +108,29 @@ Working rule: **explain each step first, then build it, then walk through the re
   3. The coordinate check was tightened after the map showed US sites appearing in Asia (missing minus sign): 20 sites, 1,058 rows.
 - **Why it matters:** The issue list (`tables/P16_profiling_issue_list.csv`) is the input to Step 2. Missing labels follow organization patterns (MAR), which is the justification for Decision Tree / Naive Bayes imputation.
 - **Files:** `01_profiling_curation/` (notebook, `figures/`, `tables/`, `GUIDE.md`, `_build/`), `requirements.txt`
+
+## 2026-11-18: Step 2, data curation and missing-value treatment (DT vs NB)
+- **What:** Built and ran `01_profiling_curation/02_data_curation_imputation.ipynb` on all 4.96M rows. It produces **`data/processed/wq_curated.parquet`** (134 MB, every row kept, flags + derived attributes + State/Region), the data-quality report in the brief's format, and the DT vs NB vs mode comparison.
+- **Downloaded (with approval):** US state boundaries, `data/reference/us-states.json` (89 KB, from the PublicaMundi MappingAPI repository on GitHub). Used to place each site in its state, then its US Census region.
+- **Key results:**
+
+| Item | Result |
+|---|---|
+| Rows deleted | **0** (reconciliation passed exactly) |
+| Analysis-ready rows | **3,772,033 (76.1%)** |
+| Daily summaries (separate grain) | 908,630 |
+| Duplicate copies flagged | 186,285 |
+| Temperatures °F → °C / "°C" corrected as °F | 885,447 / 10,848 |
+| Impossible values (raw units → after unit fixes) | 14,780 → 5,014 |
+| Sites with a US state | 96.6% (90.5% inside the boundary, 6.2% nearest within ~25 km) |
+| Equipment group imputed by Decision Tree | 2.68M rows (accuracy 99.1% random / 88.1% unseen orgs; mode 47%) |
+| Water type | Rule (same site) 405K; model **not used** (gain over the 97% mode only +0.3 to +2.1 points) → Not Reported |
+| Time band | Rule (summary = whole day) 921K; model **not used** (66.6% < 70%) → Not Reported |
+| Exceedance rate | DO 18.2% · turbidity 10.5% · pH 8.7% · conductivity 6.1% · temperature 3.4% · nitrate 3.3% |
+
+- **Problems met and fixed (recorded honestly):**
+  1. The first full run **filled the L: drive** (a 5.6 GB work database, because every stage was kept as a full copy). Fixed by deleting each stage once the next exists and using small lookup tables for model inputs; the work database now deletes itself.
+  2. The before/after check showed conductivity up to 272,000,000 µS/cm and turbidity 97,225 NTU still passing. **Physical upper limits were added** (turbidity ≤ 10,000 NTU, conductivity ≤ 200,000 µS/cm, nitrate ≤ 100 mg/L as N) and the notebook was re-run. Conductivity skewness fell from 67 to 6.7.
+  3. Two small code errors (a SQL reserved word, nested quotes) were fixed.
+- **Decision rule for imputation (fixed before seeing results):** use the best model only if it is ≥ 70% accurate on the matching test **and** at least +10 points better than the mode; otherwise *Not Reported*. Two tests were used: random (organizations seen) and grouped (organizations never seen).
+- **Files:** `01_profiling_curation/02_data_curation_imputation.ipynb`, `tables/C*.csv`, `figures/C*.png`, `GUIDE.md` (Step 2 section), `_build/`

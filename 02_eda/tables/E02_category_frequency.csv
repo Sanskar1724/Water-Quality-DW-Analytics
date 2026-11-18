@@ -1,0 +1,43 @@
+Attribute,category,n,exceed_rate,pct
+Region,Midwest,1864051,4.22,49.42
+Region,South,1030882,16.44,27.33
+Region,West,673704,3.5,17.86
+Region,Northeast,177513,9.08,4.71
+Region,Unknown,13500,12.33,0.36
+Region,Territory,12383,24.25,0.33
+Water type,Not Reported,2905374,5.76,77.02
+Water type,Surface Water,835113,14.29,22.14
+Water type,Groundwater,23535,23.71,0.62
+Water type,Ocean Water,5271,0.42,0.14
+Water type,Wastewater Treatment Plant Effluent,2287,15.35,0.06
+Water type,Stormwater,368,3.53,0.01
+Water type,Drinking Water,57,29.82,0.0
+Water type,Leachate,13,23.08,0.0
+Water type,Industrial Effluent,9,11.11,0.0
+Water type,Landfill effluent,6,33.33,0.0
+Sample type,Field measurement,3138257,7.38,83.2
+Sample type,Logger / continuous,330470,9.14,8.76
+Sample type,Lab sample,301615,10.09,8.0
+Sample type,Unknown,1691,11.3,0.04
+Season,Spring,1468761,3.36,38.94
+Season,Summer,1298808,12.22,34.43
+Season,Autumn,704784,9.12,18.68
+Season,Winter,299680,6.75,7.94
+Time band,Morning,1624633,10.38,43.07
+Time band,Not Reported,984394,2.55,26.1
+Time band,Afternoon,936880,9.25,24.84
+Time band,Night,144777,6.4,3.84
+Time band,Evening,81349,3.42,2.16
+Parameter group,Physical,2380222,4.54,63.1
+Parameter group,Chemical,1348432,13.58,35.75
+Parameter group,Nutrient,43379,3.28,1.15
+Equipment group,Probe/Sensor,2364308,4.94,62.68
+Equipment group,Other,730829,14.82,19.37
+Equipment group,Bottle/grab sampler,668262,10.0,17.72
+Equipment group,Pump,8634,7.85,0.23
+Result status,Final,3420438,7.47,90.68
+Result status,Accepted,294856,10.72,7.82
+Result status,Raw,35097,4.85,0.93
+Result status,Validated,14131,20.66,0.37
+Result status,Preliminary,6950,10.89,0.18
+Result status,Provisional,561,12.66,0.01

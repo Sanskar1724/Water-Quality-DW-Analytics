@@ -1,0 +1,17 @@
+Attribute,category,n,exceed_rate,pct
+Region,Unknown,13500,12.333,0.358
+Region,Territory,12383,24.251,0.328
+Water type,Groundwater,23535,23.709,0.624
+Water type,Ocean Water,5271,0.417,0.14
+Water type,Wastewater Treatment Plant Effluent,2287,15.348,0.061
+Water type,Stormwater,368,3.533,0.01
+Water type,Drinking Water,57,29.825,0.002
+Water type,Leachate,13,23.077,0.0
+Water type,Industrial Effluent,9,11.111,0.0
+Water type,Landfill effluent,6,33.333,0.0
+Sample type,Unknown,1691,11.295,0.045
+Equipment group,Pump,8634,7.853,0.229
+Result status,Raw,35097,4.847,0.93
+Result status,Validated,14131,20.664,0.375
+Result status,Preliminary,6950,10.892,0.184
+Result status,Provisional,561,12.656,0.015

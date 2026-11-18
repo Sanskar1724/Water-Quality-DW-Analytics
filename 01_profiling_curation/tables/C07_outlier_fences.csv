@@ -1,0 +1,7 @@
+param,scale,low_fence_value,high_fence_value,usable,extreme,% extreme
+Temperature,linear,-10.61,44.97,1912496,25.0,0.0
+Dissolved oxygen,linear,-5.46,21.28,690253,113.0,0.02
+pH,linear,4.34,11.06,658303,2254.0,0.34
+Turbidity,log10,0.005,3093.867,336418,1154.0,0.34
+Conductivity,log10,0.252,88148.55,131427,742.0,0.56
+Nitrate,log10,0.0,3309.392,43379,0.0,0.0

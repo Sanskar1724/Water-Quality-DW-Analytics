@@ -1,0 +1,12 @@
+reason,rows,pct
+✔ Analysis-ready,3772033,76.076
+Summary statistic (separate grain),908630,18.326
+Duplicate copy,186285,3.757
+Unusable unit,32085,0.647
+Quality-control record,29108,0.587
+Censored / non-detect,13030,0.263
+DO % saturation (different measure),8649,0.174
+Physically impossible,5014,0.101
+No numeric value,3003,0.061
+Suspect (provider flag),243,0.005
+Rejected by provider,158,0.003

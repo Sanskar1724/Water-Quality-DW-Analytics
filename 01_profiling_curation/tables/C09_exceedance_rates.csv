@@ -1,0 +1,7 @@
+param,ready,exceed_pct,high_risk_pct,exceedances,high_risk
+Temperature,1912387,3.38,0.23,64652.0,4308.0
+Dissolved oxygen,690164,18.22,8.56,125770.0,59111.0
+pH,658268,8.72,2.99,57404.0,19680.0
+Turbidity,336418,10.5,2.48,35339.0,8353.0
+Conductivity,131417,6.08,4.46,7985.0,5858.0
+Nitrate,43379,3.28,1.02,1421.0,442.0

@@ -1,0 +1,6 @@
+,Rows,% of raw
+1. Raw rows in file,4958238,100.0
+2. Rows removed,0,0.0
+3. Curated rows (1 − 2),4958238,100.0
+"4. Excluded from analysis (flagged, kept)",1186205,23.92
+5. Analysis-ready (3 − 4),3772033,76.08

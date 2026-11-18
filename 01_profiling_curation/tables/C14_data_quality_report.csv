@@ -1,0 +1,25 @@
+Quality problem,Field,Count,Treatment,Justification,% of rows
+Exact duplicate,all columns,0,None needed,Step 1 found 0 identical rows and 0 repeated ResultIdentifiers,0.0
+Duplicate copy (field visit),activity+parameter+fraction+statistic+depths+value+unit,186497,Flag; keep first copy for analysis,Same result entered twice in one visit would double-count,3.761
+Summary statistic (other grain),StatisticalBaseCode,921023,Flag; excluded from single-reading analysis,A daily mean/min/max is a different grain from one reading,18.576
+Quality-control record,ActivityTypeCode,29108,Flag; excluded from analysis,"Tests equipment, not water",0.587
+Rejected result,ResultStatusIdentifier,175,Exclude from analysis,Refused by the data provider,0.004
+Provisional result,ResultStatusIdentifier,92644,Retain + flag is_provisional,Not rejected; recent data still under review,1.868
+Suspect value,MeasureQualifierCode,91600,Flag; excluded from analysis,Marked suspect by the provider,1.847
+'=' prefix,ResultMeasureValue,9708,Correct (strip =),Formatting slip; the number is valid,0.196
+Censored / non-detect,ResultMeasureValue,14958,Flag; limit kept in censor_limit; excluded from averages,"Only a bound, not a measurement",0.302
+Missing or text value,ResultMeasureValue,20880,Not imputed; excluded from numeric analysis,Inventing measurements would fake water quality,0.421
+Unit converted,ResultMeasure/MeasureUnitCode,905638,Convert to standard unit,Values must be comparable,18.265
+°F labelled as °C,ResultMeasure/MeasureUnitCode,10848,"Correct as °F → °C, flagged",50–120 °C is impossible for water but normal in °F,0.219
+Unusable unit,ResultMeasure/MeasureUnitCode,34761,Retain; excluded from numeric analysis,Unit missing or impossible for the parameter (e.g. pH in mV),0.701
+DO % saturation,ResultMeasure/MeasureUnitCode,9074,Kept separately; excluded from mg/L analysis,Different measure,0.183
+Physically impossible value,ResultMeasureValue,6213,Flag; excluded from analysis,Outside physical range after standardisation,0.125
+"Extreme outlier (3×IQR, log-aware)",ResultMeasureValue,4288,Retain + flag,"May be real events (storms, hypoxia)",0.086
+Missing time of day,ActivityStartTime/Time,1432853,TimeBand: rule / model / Not Reported; ts_local uses 12:00 with time_known = false,Date is valid; only the time is unknown,28.898
+Midnight placeholder (field visit),ActivityStartTime/Time,9411,Treated as unknown time,False midnight peak,0.19
+Missing / suspect coordinates,Latitude/Longitude,10139,State/Region from site median; else 'Unknown',Location cannot be confirmed,0.204
+Wrong-sign longitude,Longitude,1058,"Set to missing, listed as flip_candidate",True sign cannot be confirmed automatically,0.021
+Missing water type,ActivityMediaSubdivisionName,3869260,Rule (same site) → model → Not Reported,See sections 10–11,78.037
+Missing equipment,SampleCollectionEquipmentName,2683733,Rule (same activity) → model → Not Reported,See sections 10–11,54.127
+Missing sample fraction,ResultSampleFractionText,2894690,Rule by parameter definition,Fraction follows from what the parameter is,58.381
+Missing collection method,SampleCollectionMethod/MethodName,3118448,Rule (same activity) else Not Reported,Free text too inconsistent to predict,62.894

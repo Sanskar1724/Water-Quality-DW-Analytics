@@ -1,0 +1,9 @@
+,Rows,% of rows
+qc,29108.0,0.587
+rejected,175.0,0.004
+suspect,91600.0,1.847
+provisional,92644.0,1.868
+summary_grain,921023.0,18.576
+logger,1017383.0,20.519
+duplicate,186497.0,3.761
+impossible,6213.0,0.125

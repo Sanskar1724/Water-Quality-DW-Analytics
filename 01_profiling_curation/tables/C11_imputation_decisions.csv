@@ -1,0 +1,7 @@
+Field,Rows group,Rows,Best model,Accuracy,Gain over mode,Decision
+Water type,orgs that sometimes fill it,178000,Decision Tree,0.994,0.021,Not Reported
+Water type,orgs that never fill it,3286180,Decision Tree,0.988,0.003,Not Reported
+Equipment group,orgs that sometimes fill it,2331599,Decision Tree,0.991,0.514,Impute with Decision Tree
+Equipment group,orgs that never fill it,352134,Decision Tree,0.881,0.416,Impute with Decision Tree
+Time band,orgs that sometimes fill it,998712,Decision Tree,0.666,0.084,Not Reported
+Time band,orgs that never fill it,84798,Decision Tree,0.582,-0.055,Not Reported

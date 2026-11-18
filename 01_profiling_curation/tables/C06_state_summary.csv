@@ -1,0 +1,55 @@
+state,region,sites,rows
+Wisconsin,Midwest,2743,1472160
+Oregon,West,1315,714155
+Washington,West,1750,526367
+Florida,South,11061,336792
+Minnesota,Midwest,5243,327893
+Virginia,South,1972,131520
+Alabama,South,1112,127072
+Connecticut,Northeast,653,96414
+Georgia,South,481,85959
+Utah,West,884,74925
+New York,Northeast,404,71903
+Michigan,Midwest,710,59820
+North Carolina,South,626,59052
+Maryland,South,273,54688
+South Carolina,South,577,53340
+Indiana,Midwest,1326,53175
+Colorado,West,1125,47616
+Tennessee,South,1812,42881
+New Jersey,Northeast,775,42119
+Oklahoma,South,532,40686
+Mississippi,South,350,37976
+Pennsylvania,Northeast,1212,37038
+Arizona,West,804,34724
+North Dakota,Midwest,309,33646
+California,West,491,31071
+Arkansas,South,519,31029
+Montana,West,789,28315
+Hawaii,West,203,26964
+Iowa,Midwest,598,26937
+New Hampshire,Northeast,1500,23992
+Texas,South,1046,23471
+New Mexico,West,323,22384
+Ohio,Midwest,752,21010
+Louisiana,South,360,19797
+Alaska,West,399,17825
+Nebraska,Midwest,202,17607
+Idaho,West,756,16573
+Unknown,Unknown,1582,14067
+Massachusetts,Northeast,520,10185
+Missouri,Midwest,621,9738
+Other territory,Territory,137,9342
+Delaware,South,254,8074
+Nevada,West,247,6506
+District of Columbia,South,45,6313
+Vermont,Northeast,404,6285
+Maine,Northeast,306,5501
+Puerto Rico,Territory,34,3601
+Wyoming,West,61,2987
+Kentucky,South,125,2603
+Kansas,Midwest,66,1589
+South Dakota,Midwest,48,1286
+West Virginia,South,18,512
+Illinois,Midwest,10,488
+Rhode Island,Northeast,11,265

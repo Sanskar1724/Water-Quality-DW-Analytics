@@ -1,0 +1,19 @@
+Field,Test,Method,Accuracy,Macro-F1,Test rows,Classes
+Water type,Random (orgs seen),Mode,0.9733,0.1409,80075,10
+Water type,Random (orgs seen),Decision Tree,0.994,0.4889,80075,10
+Water type,Random (orgs seen),Naive Bayes,0.9532,0.3475,80075,10
+Water type,Grouped (unseen orgs),Mode,0.9842,0.1984,153771,10
+Water type,Grouped (unseen orgs),Decision Tree,0.9875,0.2672,153771,10
+Water type,Grouped (unseen orgs),Naive Bayes,0.2273,0.0437,153771,10
+Equipment group,Random (orgs seen),Mode,0.4768,0.1614,80032,4
+Equipment group,Random (orgs seen),Decision Tree,0.991,0.8881,80032,4
+Equipment group,Random (orgs seen),Naive Bayes,0.9316,0.7961,80032,4
+Equipment group,Grouped (unseen orgs),Mode,0.4646,0.1586,51862,4
+Equipment group,Grouped (unseen orgs),Decision Tree,0.8807,0.6437,51862,4
+Equipment group,Grouped (unseen orgs),Naive Bayes,0.7969,0.5518,51862,4
+Time band,Random (orgs seen),Mode,0.5821,0.184,79876,4
+Time band,Random (orgs seen),Decision Tree,0.6665,0.5071,79876,4
+Time band,Random (orgs seen),Naive Bayes,0.5655,0.4218,79876,4
+Time band,Grouped (unseen orgs),Mode,0.6378,0.1947,95207,4
+Time band,Grouped (unseen orgs),Decision Tree,0.5825,0.257,95207,4
+Time band,Grouped (unseen orgs),Naive Bayes,0.5624,0.2628,95207,4
