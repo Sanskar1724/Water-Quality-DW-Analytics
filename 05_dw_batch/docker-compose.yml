@@ -1,0 +1,26 @@
+# Batch data warehouse: PostgreSQL 16 (local development only)
+# Start:  docker compose -f 05_dw_batch/docker-compose.yml up -d
+# Stop:   docker compose -f 05_dw_batch/docker-compose.yml down        (data kept in the volume)
+# Wipe:   docker compose -f 05_dw_batch/docker-compose.yml down -v
+services:
+  wq-postgres:
+    image: postgres:16-alpine
+    container_name: wq_batch_dw
+    environment:
+      POSTGRES_USER: wq
+      POSTGRES_PASSWORD: wq_local_dev      # local test password, not a real secret
+      POSTGRES_DB: wq_dw
+    ports:
+      - "5433:5432"                        # 5433 on the laptop, so it never clashes with another PostgreSQL
+    volumes:
+      - wq_pgdata:/var/lib/postgresql/data
+    command: >
+      postgres -c shared_buffers=512MB -c work_mem=64MB -c maintenance_work_mem=512MB
+               -c max_wal_size=4GB -c synchronous_commit=off
+    mem_limit: 2g
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wq -d wq_dw"]
+      interval: 5s
+      retries: 20
+volumes:
+  wq_pgdata:
