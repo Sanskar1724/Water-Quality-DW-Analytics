@@ -1,0 +1,12 @@
+characteristic,alert_level,alerts,sites
+pH,EXCEEDANCE,334,299
+Turbidity,EXCEEDANCE,264,245
+Dissolved oxygen (DO),EXCEEDANCE,250,51
+pH,HIGH RISK,218,189
+Conductivity,HIGH RISK,126,108
+Dissolved oxygen (DO),HIGH RISK,90,19
+Turbidity,HIGH RISK,59,58
+Conductivity,EXCEEDANCE,30,28
+"Temperature, water",EXCEEDANCE,15,10
+Nitrate,EXCEEDANCE,4,4
+"Temperature, water",HIGH RISK,2,2

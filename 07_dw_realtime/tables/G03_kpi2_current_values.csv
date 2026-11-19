@@ -1,0 +1,7 @@
+characteristic,latest_value,unit,results,exceedance_pct
+pH,7.32,pH units,6302,8.76
+"Temperature, water",10.0,°C,6109,0.28
+Dissolved oxygen (DO),10.6,mg/L,5573,6.1
+Turbidity,2.0,NTU,3219,10.03
+Conductivity,142.0,µS/cm,1345,11.6
+Nitrate,0.25,mg/L as N,616,0.65

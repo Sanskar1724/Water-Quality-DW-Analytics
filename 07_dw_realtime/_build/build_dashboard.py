@@ -34,11 +34,11 @@ stat('Pipeline latency (median, s)', 20, f"SELECT round(quantile(0.5)(dateDiff('
 
 panel('timeseries', 'KPI 1 · Results per minute during replay (10-second buckets × 6)', 0, 7, 12, 8,
       f"SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, count() * 6 AS results_per_minute FROM {E} "
-      "WHERE ingested_at > now64(3) - INTERVAL 30 MINUTE GROUP BY time ORDER BY time", ts=True,
+      "WHERE ingested_at > now64(3) - INTERVAL 10 MINUTE GROUP BY time ORDER BY time", ts=True,
       fieldConfig={'defaults': {'custom': {'drawStyle': 'bars', 'fillOpacity': 60}}, 'overrides': []})
 panel('timeseries', 'KPI 4 · Exceedances per 10 s by parameter', 12, 7, 12, 8,
       f"SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, characteristic, sum(exceedance_flag) AS exceedances FROM {E} "
-      "WHERE ingested_at > now64(3) - INTERVAL 30 MINUTE GROUP BY time, characteristic ORDER BY time", ts=True)
+      "WHERE ingested_at > now64(3) - INTERVAL 10 MINUTE GROUP BY time, characteristic ORDER BY time", ts=True)
 
 panel('table', 'KPI 2 · Current parameter values (latest replayed result)', 0, 15, 9, 8,
       f"SELECT characteristic AS parameter, round(argMax(result_value, (event_time, ingested_at)), 2) AS latest_value, any(unit) AS unit, "
@@ -50,10 +50,10 @@ panel('table', 'KPI 5 · Top monitored sites', 16, 15, 8, 8,
       f"SELECT site_id, any(state) AS state, count() AS results, uniqExact(characteristic) AS parameters, "
       f"round(100 * avg(exceedance_flag), 1) AS exceedance_pct FROM {E} GROUP BY site_id ORDER BY results DESC LIMIT 15")
 
-panel('table', 'KPI 7 · Poor-quality sites (≥ 10 results, ≥ 50% exceedance)', 0, 23, 12, 9,
+panel('table', 'KPI 7 · Poor-quality sites (≥ 5 results, ≥ 30% exceedance, real-time rule)', 0, 23, 12, 9,
       f"SELECT site_id, any(state) AS state, count() AS results, sum(exceedance_flag) AS exceedances, "
       f"round(100 * avg(exceedance_flag), 1) AS exceedance_pct, groupUniqArray(characteristic) AS parameters FROM {E} "
-      "GROUP BY site_id HAVING results >= 10 AND exceedance_pct >= 50 ORDER BY exceedance_pct DESC, results DESC LIMIT 20")
+      "GROUP BY site_id HAVING results >= 5 AND exceedance_pct >= 30 ORDER BY exceedance_pct DESC, results DESC LIMIT 20")
 panel('table', 'KPI 8 · ALERTS: latest high-risk results', 12, 23, 12, 9,
       f"SELECT ingested_at AS received, event_time AS sampled, site_id, state, characteristic, round(result_value, 2) AS value, unit, alert_level "
       f"FROM {E} WHERE high_risk_flag = 1 ORDER BY ingested_at DESC LIMIT 25",
@@ -61,17 +61,16 @@ panel('table', 'KPI 8 · ALERTS: latest high-risk results', 12, 23, 12, 9,
                                                   'properties': [{'id': 'custom.cellOptions', 'value': {'type': 'color-background'}},
                                                                  {'id': 'color', 'value': {'mode': 'fixed', 'fixedColor': 'red'}}]}]})
 
-panel('timeseries', 'Spark event-time windows: exceedance % per sample hour (watermarked aggregates)', 0, 32, 14, 9,
-      "SELECT window_start AS time, characteristic, round(100 * sum(exceedances) / sum(results), 1) AS exceedance_pct "
-      "FROM wq_rt.window_agg FINAL GROUP BY time, characteristic ORDER BY time", ts=True)
-panel('geomap', 'High-risk alert locations', 14, 32, 10, 9,
-      f"SELECT site_id, any(latitude) AS latitude, any(longitude) AS longitude, count() AS alerts FROM {E} "
-      "WHERE high_risk_flag = 1 AND latitude IS NOT NULL GROUP BY site_id",
-      options={'view': {'id': 'coords', 'lat': 39, 'lon': -97, 'zoom': 3},
-               'layers': [{'type': 'markers', 'config': {'style': {'color': {'fixed': 'red'}, 'size': {'fixed': 4}}},
-                           'location': {'mode': 'coords', 'latitude': 'latitude', 'longitude': 'longitude'}}]})
+panel('barchart', 'Spark event-time windows: exceedance % per sample day (from 1-hour watermarked windows)', 0, 32, 14, 9,
+      "SELECT toString(toDate(window_start)) AS sample_day, round(100 * sumIf(exceedances, characteristic = 'Temperature, water') / nullIf(sumIf(results, characteristic = 'Temperature, water'), 0), 1) AS `Temperature`, round(100 * sumIf(exceedances, characteristic = 'Dissolved oxygen (DO)') / nullIf(sumIf(results, characteristic = 'Dissolved oxygen (DO)'), 0), 1) AS `DO`, round(100 * sumIf(exceedances, characteristic = 'pH') / nullIf(sumIf(results, characteristic = 'pH'), 0), 1) AS `pH`, round(100 * sumIf(exceedances, characteristic = 'Turbidity') / nullIf(sumIf(results, characteristic = 'Turbidity'), 0), 1) AS `Turbidity`, round(100 * sumIf(exceedances, characteristic = 'Conductivity') / nullIf(sumIf(results, characteristic = 'Conductivity'), 0), 1) AS `Conductivity`, round(100 * sumIf(exceedances, characteristic = 'Nitrate') / nullIf(sumIf(results, characteristic = 'Nitrate'), 0), 1) AS `Nitrate` "
+      "FROM wq_rt.window_agg FINAL GROUP BY sample_day ORDER BY sample_day",
+      options={'xField': 'sample_day', 'stacking': 'none', 'xTickLabelRotation': -45, 'legend': {'showLegend': True, 'displayMode': 'list', 'placement': 'bottom'}})
+panel('bargauge', 'KPI 8 · High-risk alerts by state', 14, 32, 10, 9,
+      f"SELECT state, count() AS alerts FROM {E} WHERE high_risk_flag = 1 GROUP BY state ORDER BY alerts DESC LIMIT 12",
+      options={'orientation': 'horizontal', 'displayMode': 'gradient', 'reduceOptions': {'calcs': ['lastNotNull'], 'values': True}},
+      fieldConfig={'defaults': {'color': {'mode': 'continuous-YlRd'}}, 'overrides': []})
 
 dash = {'uid': 'wq-realtime', 'title': 'Water Quality · Real-Time Replay (SIMULATION)', 'tags': ['water-quality', 'realtime'],
-        'timezone': 'browser', 'refresh': '5s', 'time': {'from': 'now-30m', 'to': 'now'}, 'schemaVersion': 39, 'version': 1, 'panels': panels}
+        'timezone': 'browser', 'refresh': '5s', 'time': {'from': 'now-10m', 'to': 'now'}, 'schemaVersion': 39, 'version': 1, 'panels': panels}
 OUT.parent.mkdir(parents=True, exist_ok=True); OUT.write_text(json.dumps(dash, indent=2), encoding='utf-8')
 print('written', OUT, len(panels), 'panels')

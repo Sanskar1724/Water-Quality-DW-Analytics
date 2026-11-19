@@ -43,14 +43,14 @@ Python producer ──► Kafka ──► Spark Structured Streaming ──► C
 | 4. Exceedances | Stat + per-parameter time series |
 | 5. Top monitored sites | Table |
 | 6. Parameter coverage | Bar gauge |
-| 7. Poor-quality sites | Table (≥ 10 results and ≥ 50% exceedance) |
-| 8. Alerts | Latest high-risk events + map |
+| 7. Poor-quality sites | Table (real-time rule: ≥ 5 results and ≥ 30% exceedance, because a short live window has few results per site) |
+| 8. Alerts | Latest high-risk events + alerts by state |
 
 ## How to run the live demo
 ```bash
 docker compose -f 05_dw_batch/docker-compose.yml stop
 docker compose -f 07_dw_realtime/docker-compose.yml up -d
-python 07_dw_realtime/producer/producer.py --rate 300 --inject-invalid 20
+python 07_dw_realtime/producer/producer.py --rate 150 --inject-invalid 25
 ```
 Then open **http://localhost:3000** (Grafana) and watch the dashboard fill in. Spark's own monitoring page is at http://localhost:4040.
 
@@ -76,3 +76,24 @@ Then open **http://localhost:3000** (Grafana) and watch the dashboard fill in. S
 | **Grafana** | A live dashboard tool | A car's dashboard | `localhost:3000`, refresh 5 s | The operational monitoring screen |
 | **Latency** | Time from sending to being visible | Delay of a live TV broadcast | Median producer → ClickHouse time | Shows how "real-time" the system is |
 | **Alert** | A flagged event needing attention | A smoke alarm | High-risk results | The business purpose of the real-time DW |
+
+## Results of the full replay (19 Nov 2026), in simple words
+| Item | Result |
+|---|---|
+| Events replayed | 23,189 (all of December 2025) in about 150 seconds, ≈ 9,000 results per minute |
+| Valid / rejected | 23,164 valid + **25 rejected**: exactly the 25 deliberately broken test events |
+| Latency (send → visible) | median **4.0 s**, 99% under 6.9 s |
+| Exceedances / high-risk | 1,392 / 495 (in winter, pH tops the alerts; DO alerts are fewer in cold water) |
+| Check against the batch warehouse | Same results, high-risk count and sites; exceedances differ by 1 (a corrupted test event) |
+
+**What this shows:** the real-time warehouse turns each measurement into a dashboard update within seconds, and its numbers agree with the batch warehouse, which was built by a completely separate pipeline.
+
+## Problems met while building (and fixes)
+1. Spark started before the Kafka topic existed and stopped. A one-shot `kafka-init` service now creates the topic first, and Spark waits for it.
+2. The producer on Windows could not reach Kafka at `localhost` (resolved to IPv6). Kafka now advertises `127.0.0.1`.
+3. The event-time chart showed "data outside time range" (December 2025 vs the dashboard's last 10 minutes). It became a bar chart by sample day.
+4. The map panel needed an API key. It was replaced by an "alerts by state" bar panel.
+5. No site met the batch "poor quality" rule (≥ 10 results, ≥ 50%) in one winter month. A documented real-time rule (≥ 5, ≥ 30%) is used.
+
+## Files
+`realtime_dw_demo.ipynb` (evidence and inferences), `figures/G*.png|jpg` (charts and dashboard screenshots), `tables/G*.csv`.

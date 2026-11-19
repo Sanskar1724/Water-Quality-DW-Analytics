@@ -1,0 +1,13 @@
+,Value
+valid_events,23164
+sites,4565
+parameters,6
+exceedances,1392
+high_risk,495
+first_sample_time,2025-12-01 00:35:00
+last_sample_time,2025-12-31 16:00:00
+first_ingest,2026-11-19 16:48:36.883000
+last_ingest,2026-11-19 16:51:07.624000
+rejected_events,25
+valid + rejected,23189
+replay duration (s),150.7

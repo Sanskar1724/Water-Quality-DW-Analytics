@@ -8,7 +8,7 @@
   "timezone": "browser",
   "refresh": "5s",
   "time": {
-    "from": "now-30m",
+    "from": "now-10m",
     "to": "now"
   },
   "schemaVersion": 39,
@@ -353,7 +353,7 @@
           "editorType": "sql",
           "format": 0,
           "queryType": "timeseries",
-          "rawSql": "SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, count() * 6 AS results_per_minute FROM wq_rt.events WHERE ingested_at > now64(3) - INTERVAL 30 MINUTE GROUP BY time ORDER BY time"
+          "rawSql": "SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, count() * 6 AS results_per_minute FROM wq_rt.events WHERE ingested_at > now64(3) - INTERVAL 10 MINUTE GROUP BY time ORDER BY time"
         }
       ],
       "fieldConfig": {
@@ -391,7 +391,7 @@
           "editorType": "sql",
           "format": 0,
           "queryType": "timeseries",
-          "rawSql": "SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, characteristic, sum(exceedance_flag) AS exceedances FROM wq_rt.events WHERE ingested_at > now64(3) - INTERVAL 30 MINUTE GROUP BY time, characteristic ORDER BY time"
+          "rawSql": "SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, characteristic, sum(exceedance_flag) AS exceedances FROM wq_rt.events WHERE ingested_at > now64(3) - INTERVAL 10 MINUTE GROUP BY time, characteristic ORDER BY time"
         }
       ]
     },
@@ -495,7 +495,7 @@
     {
       "id": 13,
       "type": "table",
-      "title": "KPI 7 \u00b7 Poor-quality sites (\u2265 10 results, \u2265 50% exceedance)",
+      "title": "KPI 7 \u00b7 Poor-quality sites (\u2265 5 results, \u2265 30% exceedance, real-time rule)",
       "description": "",
       "gridPos": {
         "x": 0,
@@ -517,7 +517,7 @@
           "editorType": "sql",
           "format": 1,
           "queryType": "table",
-          "rawSql": "SELECT site_id, any(state) AS state, count() AS results, sum(exceedance_flag) AS exceedances, round(100 * avg(exceedance_flag), 1) AS exceedance_pct, groupUniqArray(characteristic) AS parameters FROM wq_rt.events GROUP BY site_id HAVING results >= 10 AND exceedance_pct >= 50 ORDER BY exceedance_pct DESC, results DESC LIMIT 20"
+          "rawSql": "SELECT site_id, any(state) AS state, count() AS results, sum(exceedance_flag) AS exceedances, round(100 * avg(exceedance_flag), 1) AS exceedance_pct, groupUniqArray(characteristic) AS parameters FROM wq_rt.events GROUP BY site_id HAVING results >= 5 AND exceedance_pct >= 30 ORDER BY exceedance_pct DESC, results DESC LIMIT 20"
         }
       ]
     },
@@ -578,8 +578,8 @@
     },
     {
       "id": 15,
-      "type": "timeseries",
-      "title": "Spark event-time windows: exceedance % per sample hour (watermarked aggregates)",
+      "type": "barchart",
+      "title": "Spark event-time windows: exceedance % per sample day (from 1-hour watermarked windows)",
       "description": "",
       "gridPos": {
         "x": 0,
@@ -599,16 +599,26 @@
             "uid": "wq-clickhouse"
           },
           "editorType": "sql",
-          "format": 0,
-          "queryType": "timeseries",
-          "rawSql": "SELECT window_start AS time, characteristic, round(100 * sum(exceedances) / sum(results), 1) AS exceedance_pct FROM wq_rt.window_agg FINAL GROUP BY time, characteristic ORDER BY time"
+          "format": 1,
+          "queryType": "table",
+          "rawSql": "SELECT toString(toDate(window_start)) AS sample_day, round(100 * sumIf(exceedances, characteristic = 'Temperature, water') / nullIf(sumIf(results, characteristic = 'Temperature, water'), 0), 1) AS `Temperature`, round(100 * sumIf(exceedances, characteristic = 'Dissolved oxygen (DO)') / nullIf(sumIf(results, characteristic = 'Dissolved oxygen (DO)'), 0), 1) AS `DO`, round(100 * sumIf(exceedances, characteristic = 'pH') / nullIf(sumIf(results, characteristic = 'pH'), 0), 1) AS `pH`, round(100 * sumIf(exceedances, characteristic = 'Turbidity') / nullIf(sumIf(results, characteristic = 'Turbidity'), 0), 1) AS `Turbidity`, round(100 * sumIf(exceedances, characteristic = 'Conductivity') / nullIf(sumIf(results, characteristic = 'Conductivity'), 0), 1) AS `Conductivity`, round(100 * sumIf(exceedances, characteristic = 'Nitrate') / nullIf(sumIf(results, characteristic = 'Nitrate'), 0), 1) AS `Nitrate` FROM wq_rt.window_agg FINAL GROUP BY sample_day ORDER BY sample_day"
         }
-      ]
+      ],
+      "options": {
+        "xField": "sample_day",
+        "stacking": "none",
+        "xTickLabelRotation": -45,
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
     },
     {
       "id": 16,
-      "type": "geomap",
-      "title": "High-risk alert locations",
+      "type": "bargauge",
+      "title": "KPI 8 \u00b7 High-risk alerts by state",
       "description": "",
       "gridPos": {
         "x": 14,
@@ -630,36 +640,26 @@
           "editorType": "sql",
           "format": 1,
           "queryType": "table",
-          "rawSql": "SELECT site_id, any(latitude) AS latitude, any(longitude) AS longitude, count() AS alerts FROM wq_rt.events WHERE high_risk_flag = 1 AND latitude IS NOT NULL GROUP BY site_id"
+          "rawSql": "SELECT state, count() AS alerts FROM wq_rt.events WHERE high_risk_flag = 1 GROUP BY state ORDER BY alerts DESC LIMIT 12"
         }
       ],
       "options": {
-        "view": {
-          "id": "coords",
-          "lat": 39,
-          "lon": -97,
-          "zoom": 3
-        },
-        "layers": [
-          {
-            "type": "markers",
-            "config": {
-              "style": {
-                "color": {
-                  "fixed": "red"
-                },
-                "size": {
-                  "fixed": 4
-                }
-              }
-            },
-            "location": {
-              "mode": "coords",
-              "latitude": "latitude",
-              "longitude": "longitude"
-            }
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": true
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-YlRd"
           }
-        ]
+        },
+        "overrides": []
       }
     }
   ]

@@ -210,3 +210,9 @@ Working rule: **explain each step first, then build it, then walk through the re
 ## 2026-11-19 (evening): Step 12 (first version), automatic PPT
 - **What:** `ppt/build_ppt.py` (python-pptx, built by a helper agent) collects every notebook chart with its "Why this chart" and inference into `ppt/Water_Quality_DW_Analytics.pptx`: **106 slides** (title, agenda, lifecycle, dataset, per-folder dividers, 44 figure slides, table slides, design slides, key-terms slides, closing). It is re-runnable, so new steps appear automatically on the next run.
 - **To check:** the slide layout in PowerPoint (text fit, long tables). Sections with several charts repeat the same why/inference text on each slide.
+
+## 2026-11-19 (night): Step 8, real-time DW running end to end
+- **What:** Started the Kafka + Spark + ClickHouse + Grafana stack in Docker (PostgreSQL stopped to free memory), fixed the first-run issues, replayed **all of December 2025** (SIMULATION) and documented it in `07_dw_realtime/realtime_dw_demo.ipynb` with Grafana screenshots.
+- **Results:** 23,189 events in about 150 s (≈ 9,000/min); **23,164 valid + 25 rejected** (exactly the injected invalid events); latency median 3.97 s, p99 6.86 s; 1,392 exceedances, 495 high-risk; all 8 KPIs live in Grafana.
+- **Consistency check vs batch DW (December):** results, high-risk and sites identical; exceedances differ by 1 (a corrupted test event). Two independent pipelines agree.
+- **Fixes:** a `kafka-init` service creates the topic before Spark subscribes; Kafka advertises 127.0.0.1 (Windows IPv6 issue); the event-time panel became a per-day bar chart; the map panel was replaced by alerts-by-state; poor-quality sites use a documented real-time rule (≥ 5 results, ≥ 30%).

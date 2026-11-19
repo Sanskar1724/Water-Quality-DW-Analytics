@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[2]
 CURATED = ROOT / 'data' / 'processed' / 'wq_curated.parquet'
 
 ap = argparse.ArgumentParser()
-ap.add_argument('--bootstrap', default='localhost:9092')
+ap.add_argument('--bootstrap', default='127.0.0.1:9092')
 ap.add_argument('--topic', default='wq.results.replay')
 ap.add_argument('--start', default='2025-12-01'); ap.add_argument('--end', default='2025-12-31')
 ap.add_argument('--rate', type=float, default=300, help='events per second (replay speed)')
