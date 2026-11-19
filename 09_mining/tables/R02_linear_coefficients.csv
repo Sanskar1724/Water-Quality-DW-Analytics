@@ -1,0 +1,21 @@
+,coef (mg/L per 1 SD),p_value
+water_type_Not Reported,2.966,0.0
+water_type_Surface Water,2.7176,0.0
+prev_do,0.9304,0.0
+temperature,-0.9277,0.0
+ph,0.6407,0.0
+latitude,0.6351,0.0
+region_South,0.416,0.0
+month_cos,0.2823,0.0
+water_type_Ocean Water,0.2019,0.0
+month_sin,0.1835,0.0
+region_Northeast,0.1764,0.0
+has_ph,0.161,0.0
+season_Winter,0.1607,0.0
+water_type_Wastewater Treatment Plant Effluent,0.1382,0.0
+water_type_Groundwater,0.1232,0.0466
+season_Spring,0.1221,0.0
+has_prev_do,-0.0914,0.0
+season_Summer,0.0909,0.0
+has_temperature,-0.0897,0.0
+region_West,0.0894,0.0

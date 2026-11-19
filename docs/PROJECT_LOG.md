@@ -191,3 +191,18 @@ Working rule: **explain each step first, then build it, then walk through the re
 ## 2026-11-19 (evening): Analytical mart built from the warehouse
 - **What:** `09_mining/build_analytics_mart.py` exports every fact joined to its dimensions from PostgreSQL → `data/processed/wq_analytics_mart.parquet` (3,772,033 rows, 56 MB, not uploaded).
 - **Why:** brief §18 integration rule: feature selection and all mining models read the mart built **from the DW**, never the raw file.
+
+## 2026-11-19 (evening): Step 4, feature selection (whole project)
+- **What:** `03_feature_selection/01_feature_selection.ipynb` on the analytical mart (built from the DW). Methods: Pearson/Spearman, VIF, f_regression/ANOVA F, chi-square/Cramér's V, mutual information, RFE-CV, Lasso, Random Forest importance, permutation importance, then a consensus vote. The output `selected_features.json` is shared by all mining notebooks.
+- **Result:**
+  - **Regression (DO):** latitude, temperature, previous DO, pH (6/6 votes), water type, month sin/cos, season, region. All VIF < 1.4. RF ceiling R² 0.71.
+  - **Decision tree (HighRisk):** 15 of 26 features (parameter, previous result/high-risk, co-measured pH/temperature/DO, organization, state, latitude, month, equipment, time band…). RF ROC-AUC 0.97.
+  - **Association items:** region, parameter, group, equipment, season, water type, time band, weekend (Cramér's V ≥ 0.05).
+- **Fixes:** SQL reserved words (`rows`, `month`) → explicit `AS`; scikit-learn 1.9 renamed Lasso `n_alphas` → `alphas`.
+
+## 2026-11-19 (evening): Step 10, data mining (regression, decision tree, association rules)
+- **Regression (DO, test Jul–Dec 2025):** Gradient Boosting **R² 0.64, RMSE 1.64 mg/L**; Random Forest 0.63 (train 0.79 → overfits more); multiple linear 0.51; temperature-only 0.20. Coefficients: previous DO +0.93, temperature −0.93, pH +0.64, latitude +0.64 (per SD). Heteroscedastic (Breusch–Pagan p ≈ 0).
+- **Decision tree (HighRisk, chronological split):** the best-F1 tree had 1,821 leaves and memorised. A **simplicity rule** (fewest leaves within 0.02 F1 of the best) chose a **pruned 275-leaf tree** (ccp_alpha 1e-4) with a better test result: **recall 91.7%, precision 14.6%, F1 0.25, ROC-AUC 0.919**. The clearest path: no co-measured temperature + previous high-risk → 58% high-risk.
+- **Association rules:** Apriori and FP-Growth found the same 7,560 itemsets (FP-Growth 2.3× faster). 933 definitional rules (ResultBand → Exceedance) and parameter↔group hierarchy rules were removed. **Top rule: Temperature + South + Summer → Exceedance (support 1.1%, confidence 43%, lift 5.5)**; 9 of the 10 reported rules involve summer.
+- **Fixes:** Apriori tried to allocate 13 GB on 600K baskets → `low_memory=True` with 250K baskets; a console-unsafe arrow in a print.
+- **Parallel work started:** a cloud session builds `08_olap_dashboard/` (OLAP SQL, Power BI guide, findings template); a helper agent builds the `ppt/` generator.

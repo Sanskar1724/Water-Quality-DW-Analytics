@@ -1,0 +1,11 @@
+,antecedents_s,consequents_s,support,confidence,lift
+Rule 1,Parameter=Temperature + Region=South + Season=Summer,Exceedance=Yes,0.0107,0.4317,5.5441
+Rule 2,Equipment=Other + Season=Summer + WaterType=Surface Water,Exceedance=Yes,0.0087,0.3926,5.0419
+Rule 3,Parameter=Dissolved oxygen + Season=Summer + WaterType=Surface Water,Exceedance=Yes,0.0098,0.3666,4.7074
+Rule 4,Parameter=Dissolved oxygen + Region=South + Season=Summer,Exceedance=Yes,0.0086,0.3544,4.5515
+Rule 5,Equipment=Other + Parameter=Temperature + Season=Summer,Exceedance=Yes,0.0063,0.3499,4.4941
+Rule 6,Equipment=Bottle/grab sampler + Parameter=Dissolved oxygen + Season=Summer,Exceedance=Yes,0.0065,0.3366,4.3231
+Rule 7,Region=South + Season=Summer + WaterType=Surface Water,Exceedance=Yes,0.0112,0.3275,4.2054
+Rule 8,Equipment=Other + Region=South + Season=Summer,Exceedance=Yes,0.0125,0.3221,4.1363
+Rule 9,Parameter=Dissolved oxygen + Region=Midwest + WaterType=Surface Water,Exceedance=Yes,0.0076,0.3163,4.0618
+Rule 10,Group=Physical + Region=South + Season=Summer,Exceedance=Yes,0.0122,0.3137,4.029

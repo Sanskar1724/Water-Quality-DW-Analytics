@@ -52,7 +52,9 @@ A tree that grows too deep **memorises** the training data (overfitting); one th
 - `min_samples_split` / `min_samples_leaf` (a split or leaf must cover enough results)
 - `ccp_alpha` (*cost-complexity pruning*: cut branches that add little)
 
-and pick the best **F1 on the validation months**. F1 balances precision and recall.
+and score each on the **validation months** (F1 balances precision and recall).
+
+**Selection rule (complexity control):** the tree with the very best F1 is often huge and partly memorises noise. So among all trees whose validation F1 is **within 0.02 of the best**, we choose the one with the **fewest leaves**: nearly the same quality, far simpler and easier to explain (a version of the classic *one-standard-error rule*).
 """)
 code(r"""
 grid = []; t = time.time()
@@ -69,7 +71,11 @@ for depth in [4, 6, 8, 10, 12, 15]:
                              'val_AUC': roc_auc_score(y[va], pr_va)})
 g = pd.DataFrame(grid).sort_values('val_F1', ascending=False); print(f'{len(g)} trees trained in {time.time() - t:.0f}s')
 display(save_tab(g.round(4).head(15), '02_tuning_top15'))
-best = g.iloc[0]; print('Best parameters:', best[['max_depth', 'min_samples_leaf', 'min_samples_split', 'ccp_alpha']].to_dict())
+# Simplicity rule (complexity control): among trees within 0.02 of the best validation F1, take the one with the fewest leaves
+near = g[g.val_F1 >= g.val_F1.max() - 0.02]
+best = near.sort_values(['leaves', 'val_F1'], ascending=[True, False]).iloc[0]
+print(f'Best validation F1 = {g.val_F1.max():.4f} ({int(g.iloc[0].leaves)} leaves); {len(near)} trees are within 0.02 of it')
+print('Chosen (simplest of those):', best[['max_depth', 'min_samples_leaf', 'min_samples_split', 'ccp_alpha', 'leaves', 'val_F1', 'val_AUC']].to_dict())
 fig, ax = plt.subplots(figsize=(9, 4.5))
 gd = g.groupby('max_depth')[['train_F1', 'val_F1']].max()
 ax.plot(gd.index, gd.train_F1, marker='o', label='train F1 (best per depth)'); ax.plot(gd.index, gd.val_F1, marker='o', label='validation F1 (best per depth)')

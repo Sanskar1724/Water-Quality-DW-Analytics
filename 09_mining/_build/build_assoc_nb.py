@@ -28,6 +28,7 @@ md(r"""
 **Quality rules for reporting:**
 - minimum support 0.5%, so rare flukes with a huge lift are not presented as important
 - rules whose antecedent contains *ResultBand* while the consequent is *Exceedance/HighRisk* are **definitional** (the band already implies the flag), so they are filtered out
+- rules linking a *Parameter* with its own *ParameterGroup* (e.g. Nitrate → Nutrient) are a hierarchy, not a discovery, and are also filtered out
 """)
 code(r"""
 import sys, time, json, numpy as np, pandas as pd, matplotlib.pyplot as plt, seaborn as sns
@@ -85,7 +86,9 @@ keep = keep.sort_values(['lift', 'confidence'], ascending=False)
 keep['n_items'] = keep.antecedents.map(len)
 top = keep.drop_duplicates(subset=['consequents_s', 'antecedents_s']).head(40)
 display(save_tab(top[['antecedents_s', 'consequents_s', 'support', 'confidence', 'lift', 'n_items']].round(4), '02_outcome_rules_top40'))
-other = rules[~outcome & ~rules.antecedents_s.str.contains('ResultBand=|Exceedance=|HighRisk=') & ~rules.consequents_s.str.contains('ResultBand=|Exceedance=|HighRisk=')
+both = rules.antecedents_s + ' + ' + rules.consequents_s
+hierarchy = both.str.contains('Parameter=') & both.str.contains('Group=')   # Parameter -> ParameterGroup is a definition, not a discovery
+other = rules[~outcome & ~hierarchy & ~rules.antecedents_s.str.contains('ResultBand=|Exceedance=|HighRisk=') & ~rules.consequents_s.str.contains('ResultBand=|Exceedance=|HighRisk=')
               & (rules.lift > 1.5) & (rules.confidence > 0.6)].sort_values('lift', ascending=False)
 display(save_tab(other[['antecedents_s', 'consequents_s', 'support', 'confidence', 'lift']].head(15).round(4), '03_monitoring_pattern_rules'))
 """)

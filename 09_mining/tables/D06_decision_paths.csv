@@ -1,0 +1,4 @@
+leaf,training results,high-risk share,path
+422,495,79.0,"has_co_temperature > 0.50  AND  prev_high_risk ≤ 0.50  AND  has_co_do > 0.50  AND  prev_result > 12.90  AND  prev_result ≤ 12.91  AND  latitude > 28.18  AND  latitude ≤ 35.43  AND  equipment_group ∈ {Other, Probe/Sensor, Pump}  AND  co_ph > 7.12  AND  state ∈ {Alabama, Alaska, Arizona, Arkansas, California, Colorado, …}  AND  latitude > 30.36  AND  latitude ≤ 33.41  AND  parameter ∈ {Conductivity, Dissolved oxygen}"
+97,1317,58.1,has_co_temperature ≤ 0.50  AND  prev_high_risk > 0.50
+490,279,54.8,"has_co_temperature > 0.50  AND  prev_high_risk ≤ 0.50  AND  has_co_do > 0.50  AND  prev_result > 12.90  AND  prev_result ≤ 12.91  AND  latitude > 28.18  AND  latitude > 35.43  AND  organization ∈ {11113300, 1111REG1_WQX, 1119USBR_WQX, 11NPSWRD_WQX, 1VTDECWQ, 21AKBCH, …}  AND  organization ∈ {SVR, SWINOMISH, SWO_OEP, SYCEO_WQX, TABLEMOUNTAINRANCHERIA_WQX, TAMUCC, …}  AND  parameter ∈ {Conductivity, Dissolved oxygen}"

@@ -1,0 +1,16 @@
+antecedents_s,consequents_s,support,confidence,lift
+Equipment=Bottle/grab sampler + Parameter=Conductivity,Region=West + TimeBand=Not Reported,0.0097,0.7694,20.4389
+Parameter=Conductivity + TimeBand=Not Reported,Equipment=Bottle/grab sampler + Region=West,0.0097,0.7662,18.72
+Parameter=Conductivity + Region=West,Equipment=Bottle/grab sampler + TimeBand=Not Reported,0.0097,0.6092,17.704
+Parameter=Conductivity + Season=Autumn,Region=West + TimeBand=Not Reported,0.0083,0.6096,16.1945
+Equipment=Bottle/grab sampler + Parameter=Conductivity,Season=Autumn + TimeBand=Not Reported,0.0079,0.6237,15.6518
+Parameter=Conductivity + TimeBand=Not Reported,Region=West + Season=Autumn,0.0083,0.6552,13.0498
+Equipment=Bottle/grab sampler + Parameter=Conductivity,Region=West + Season=Autumn,0.008,0.6303,12.5547
+Equipment=Bottle/grab sampler + TimeBand=Not Reported,Region=West + Season=Autumn,0.0212,0.6173,12.2957
+Parameter=Conductivity + TimeBand=Not Reported,Equipment=Bottle/grab sampler + Season=Autumn,0.0079,0.6211,11.8746
+TimeBand=Night + WaterType=Surface Water,Equipment=Bottle/grab sampler + Season=Summer,0.0076,0.8738,11.6755
+Equipment=Bottle/grab sampler + TimeBand=Night,Region=Midwest + WaterType=Surface Water,0.0078,0.8526,10.8338
+TimeBand=Night + WaterType=Surface Water,Equipment=Bottle/grab sampler + Region=Midwest,0.0078,0.8927,10.217
+Equipment=Probe/Sensor + TimeBand=Evening,Parameter=Temperature + Region=West,0.0152,0.9134,9.962
+TimeBand=Evening,Equipment=Probe/Sensor + Parameter=Temperature + Region=West,0.0152,0.716,9.6345
+Equipment=Bottle/grab sampler + Region=South + WaterType=Surface Water,Parameter=Turbidity,0.0135,0.8487,9.5122
