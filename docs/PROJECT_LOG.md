@@ -182,3 +182,12 @@ Working rule: **explain each step first, then build it, then walk through the re
 2. Stop PostgreSQL, start `07_dw_realtime`, run the producer, fix issues, capture Grafana screenshots, write inferences. Push.
 3. Step 4 feature selection → Step 10 decision tree + association rules (+ regression).
 4. Step 9 OLAP + Power BI dashboard + 10 findings. Step 7 distributed (Citus). Step 11 architecture comparison. Step 12 PPT.
+
+## 2026-11-19 (evening): Step 6 finished: batch DW demo notebook run
+- **What:** Ran `05_dw_batch/batch_dw_demo.ipynb` end to end (PostgreSQL in Docker) and filled its inferences.
+- **Results (notebook run):** initial load 3,748,844 facts in 354 s; incremental Dec 2025: 23,189 facts, 53 new sites, 2 new org/method combinations in 15.7 s; **11/11 validation checks PASS**; monthly trend query **223 ms on the aggregate fact vs 6,556 ms on the detail fact (≈29× faster)**; detail fact 719 MB, monthly fact 117 MB, all dimensions together < 10 MB.
+- **Files:** `05_dw_batch/batch_dw_demo.ipynb`, `tables/B*.csv`, `figures/B07_load_and_query_summary.png`
+
+## 2026-11-19 (evening): Analytical mart built from the warehouse
+- **What:** `09_mining/build_analytics_mart.py` exports every fact joined to its dimensions from PostgreSQL → `data/processed/wq_analytics_mart.parquet` (3,772,033 rows, 56 MB, not uploaded).
+- **Why:** brief §18 integration rule: feature selection and all mining models read the mart built **from the DW**, never the raw file.

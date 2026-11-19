@@ -1,0 +1,9 @@
+Query,Median ms (initial),Median ms (after incremental)
+Q1_monthly_trend,5414.1,6555.5
+Q2_site_comparison,3171.4,3358.4
+Q3_worst_sites,1959.9,1525.9
+Q4_seasonal,4562.9,4643.7
+Q6_exceedance_by_region,1110.8,1217.0
+Q7_org_coverage,8788.4,8660.7
+Q8_water_type,1554.2,1710.2
+M1_monthly_fact_trend,244.5,222.6

@@ -1,0 +1,8 @@
+table_name,Before,After,Added
+dim_date,731,731,0
+dim_time,25,25,0
+dim_monitoring_location,49218,49271,53
+dim_characteristic,6,6,0
+dim_organization_method,926,928,2
+fact_water_quality_result,3748844,3772033,23189
+fact_site_monthly_water_quality,979618,995875,16257

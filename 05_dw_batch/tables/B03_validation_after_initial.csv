@@ -1,0 +1,12 @@
+Check,Warehouse,Expected,Status
+Fact rows = staged rows (all batches),3748844,3748844,PASS
+Fact rows = curated analysis-ready rows,3748844,3772033,FAIL
+Orphan date_key,0,0,PASS
+Orphan location_key,0,0,PASS
+Orphan characteristic_key,0,0,PASS
+Orphan org_method_key,0,0,PASS
+Orphan time_key,0,0,PASS
+Duplicate result_id in fact,0,0,PASS
+Monthly fact sample_count = detail fact rows,3748844,3748844,PASS
+Monthly fact exceedances = detail fact exceedances,291178,291178,PASS
+Sum of result_value: warehouse vs staging (rounded),313799036,313799036,PASS

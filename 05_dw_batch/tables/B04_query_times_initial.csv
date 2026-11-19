@@ -1,0 +1,9 @@
+Query,Question,Rows returned,Median ms,Min ms
+Q1_monthly_trend,"Q1: results, sites and exceedance rate per month",23,5414.1,5300.7
+Q2_site_comparison,Q2: median value per parameter for sites with >= 30 results (spread across sites),6,3171.4,2867.5
+Q3_worst_sites,Q3: sites with the highest DO exceedance rate (>= 30 results),10,1959.9,1954.2
+Q4_seasonal,Q4: seasonal median and exceedance rate per parameter,24,4562.9,4172.9
+Q6_exceedance_by_region,Q6: exceedances and high-risk results by region and parameter,34,1110.8,1103.9
+Q7_org_coverage,"Q7: organization coverage (sites, parameters, months)",15,8788.4,8116.3
+Q8_water_type,Q8: median value by location (water) type and parameter,17,1554.2,1271.9
+M1_monthly_fact_trend,Same monthly trend answered from the aggregate fact (constellation benefit),23,244.5,193.5

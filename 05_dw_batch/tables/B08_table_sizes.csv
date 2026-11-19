@@ -1,0 +1,9 @@
+table_name,total_size,bytes
+fact_water_quality_result,719 MB,753737728
+fact_site_monthly_water_quality,117 MB,122454016
+dim_monitoring_location,8616 kB,8822784
+dim_organization_method,272 kB,278528
+dim_date,160 kB,163840
+dim_characteristic,48 kB,49152
+etl_load_log,32 kB,32768
+dim_time,32 kB,32768
