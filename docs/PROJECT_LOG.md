@@ -206,3 +206,7 @@ Working rule: **explain each step first, then build it, then walk through the re
 - **Association rules:** Apriori and FP-Growth found the same 7,560 itemsets (FP-Growth 2.3× faster). 933 definitional rules (ResultBand → Exceedance) and parameter↔group hierarchy rules were removed. **Top rule: Temperature + South + Summer → Exceedance (support 1.1%, confidence 43%, lift 5.5)**; 9 of the 10 reported rules involve summer.
 - **Fixes:** Apriori tried to allocate 13 GB on 600K baskets → `low_memory=True` with 250K baskets; a console-unsafe arrow in a print.
 - **Parallel work started:** a cloud session builds `08_olap_dashboard/` (OLAP SQL, Power BI guide, findings template); a helper agent builds the `ppt/` generator.
+
+## 2026-11-19 (evening): Step 12 (first version), automatic PPT
+- **What:** `ppt/build_ppt.py` (python-pptx, built by a helper agent) collects every notebook chart with its "Why this chart" and inference into `ppt/Water_Quality_DW_Analytics.pptx`: **106 slides** (title, agenda, lifecycle, dataset, per-folder dividers, 44 figure slides, table slides, design slides, key-terms slides, closing). It is re-runnable, so new steps appear automatically on the next run.
+- **To check:** the slide layout in PowerPoint (text fit, long tables). Sections with several charts repeat the same why/inference text on each slide.
