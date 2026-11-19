@@ -7,7 +7,8 @@ import json, duckdb, numpy as np, pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 MART = (ROOT / 'data' / 'processed' / 'wq_analytics_mart.parquet').as_posix()
-SELECTED = json.loads((ROOT / '03_feature_selection' / 'selected_features.json').read_text(encoding='utf-8'))
+_SEL = ROOT / '03_feature_selection' / 'selected_features.json'
+SELECTED = json.loads(_SEL.read_text(encoding='utf-8')) if _SEL.exists() else {}
 
 
 def connect():
@@ -15,9 +16,9 @@ def connect():
     con.execute(f"CREATE OR REPLACE VIEW mart AS SELECT * FROM '{MART}'")
     con.execute('''
     CREATE OR REPLACE TABLE sd AS
-    SELECT site_id, sample_date, any_value(state) state, any_value(region) region, any_value(water_type) water_type,
-           mode(organization) organization, mode(sample_type_group) sample_type_group, mode(equipment_group) equipment_group,
-           any_value(month) month, any_value(season) season, any_value(latitude) latitude,
+    SELECT site_id, sample_date, any_value(state) AS state, any_value(region) AS region, any_value(water_type) AS water_type,
+           mode(organization) AS organization, mode(sample_type_group) AS sample_type_group, mode(equipment_group) AS equipment_group,
+           any_value(month) AS month, any_value(season) AS season, any_value(latitude) AS latitude,
            median(result_value) FILTER (WHERE parameter = 'Dissolved oxygen') AS do_val,
            median(result_value) FILTER (WHERE parameter = 'Temperature') AS temperature,
            median(result_value) FILTER (WHERE parameter = 'pH') AS ph,

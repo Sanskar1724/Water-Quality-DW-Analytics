@@ -45,7 +45,7 @@ ATTR = [a for a in md_.SELECTED['association']['item_attributes'] if a not in ('
 print('Item attributes from Step 4:', ATTR)
 con = md_.connect()
 cols = ', '.join(ATTR)
-tx = con.execute(f'''SELECT {cols}, result_band, exceedance_flag, high_risk_flag FROM mart USING SAMPLE reservoir(600000 ROWS) REPEATABLE (21)''').df()
+tx = con.execute(f'''SELECT {cols}, result_band, exceedance_flag, high_risk_flag FROM mart USING SAMPLE reservoir(250000 ROWS) REPEATABLE (21)''').df()
 NAMES = {'parameter': 'Parameter', 'parameter_group': 'Group', 'season': 'Season', 'region': 'Region', 'water_type': 'WaterType',
          'sample_type_group': 'SampleType', 'equipment_group': 'Equipment', 'time_band': 'TimeBand', 'is_weekend': 'Weekend', 'year': 'Year'}
 items = pd.DataFrame(index=tx.index)
@@ -64,7 +64,7 @@ display(items.mean().sort_values(ascending=False).rename('support').to_frame().h
 md(r"""## 1 · Frequent itemsets: Apriori vs FP-Growth""")
 code(r"""
 MIN_SUP = 0.005
-t = time.time(); fi_ap = apriori(items, min_support=MIN_SUP, use_colnames=True, max_len=4); t_ap = time.time() - t
+t = time.time(); fi_ap = apriori(items, min_support=MIN_SUP, use_colnames=True, max_len=4, low_memory=True); t_ap = time.time() - t
 t = time.time(); fi_fp = fpgrowth(items, min_support=MIN_SUP, use_colnames=True, max_len=4); t_fp = time.time() - t
 same = set(map(frozenset, fi_ap.itemsets)) == set(map(frozenset, fi_fp.itemsets))
 cmp_ = pd.DataFrame({'Apriori': [len(fi_ap), round(t_ap, 2)], 'FP-Growth': [len(fi_fp), round(t_fp, 2)]}, index=['Frequent itemsets', 'Seconds'])
@@ -74,7 +74,7 @@ infer("A1")
 
 md(r"""## 2 · Rules, filtering and the 10 most meaningful rules""")
 code(r"""
-rules = association_rules(fi_ap, metric='confidence', min_threshold=0.3)
+rules = association_rules(fi_ap, num_itemsets=len(items), metric='confidence', min_threshold=0.3)
 rules['antecedents_s'] = rules.antecedents.map(lambda s: ' + '.join(sorted(s))); rules['consequents_s'] = rules.consequents.map(lambda s: ' + '.join(sorted(s)))
 outcome = rules.consequents_s.str.contains('Exceedance=Yes|HighRisk=Yes')
 definitional = rules.antecedents_s.str.contains('ResultBand=|Exceedance=|HighRisk=') & outcome

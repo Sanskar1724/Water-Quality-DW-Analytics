@@ -1,0 +1,11 @@
+attribute,categories,cramers_v,chi2_p_value,use_as_items
+region,6,0.2093,0.0,True
+parameter,6,0.2076,0.0,True
+parameter_group,3,0.1625,0.0,True
+equipment_group,4,0.1473,0.0,True
+season,4,0.1444,0.0,True
+water_type,10,0.142,0.0,True
+time_band,5,0.1247,0.0,True
+is_weekend,2,0.0623,0.0,True
+sample_type_group,4,0.0316,0.0,False
+year,2,0.0137,0.0,False

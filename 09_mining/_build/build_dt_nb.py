@@ -57,9 +57,9 @@ and pick the best **F1 on the validation months**. F1 balances precision and rec
 code(r"""
 grid = []; t = time.time()
 for depth in [4, 6, 8, 10, 12, 15]:
-    for leaf in [20, 100, 500]:
-        for split_ in [50, 500]:
-            for alpha in [0.0, 1e-5, 1e-4]:
+    for leaf in [20, 200]:
+        for split_ in [100]:
+            for alpha in [0.0, 1e-4]:
                 m = DecisionTreeClassifier(max_depth=depth, min_samples_leaf=leaf, min_samples_split=split_, ccp_alpha=alpha,
                                            class_weight='balanced', random_state=42).fit(X[tr], y[tr])
                 p_tr, p_va = m.predict(X[tr]), m.predict(X[va]); pr_va = m.predict_proba(X[va])[:, 1]

@@ -1,0 +1,17 @@
+feature,mutual_info,F_stat,lasso_abs_coef,rfe_selected,rf_importance,permutation_importance,votes,selected,VIF
+latitude,True,True,True,True,True,True,6,True,1.3229472825311324
+temperature,True,True,True,True,True,True,6,True,1.4001055543007432
+prev_do,True,True,True,True,True,True,6,True,1.1799717958729654
+ph,True,True,True,True,True,True,6,True,1.0877643451038566
+water_type,False,True,True,True,True,True,5,True,
+month_sin,False,True,True,True,True,True,5,True,
+month_cos,False,True,True,True,True,False,4,True,
+season,True,True,True,True,False,False,4,True,
+region,True,False,True,True,False,True,4,True,
+organization,True,False,False,False,True,True,3,False,
+log_conductivity,False,False,True,True,False,False,2,False,1.0181162384267572
+log_nitrate,False,False,True,True,False,False,2,False,1.0035850731288
+log_turbidity,False,False,True,True,False,False,2,False,1.004220524082602
+equipment_group,False,False,True,True,False,False,2,False,
+sample_type_group,False,False,True,True,False,False,2,False,
+state,True,False,False,False,False,False,1,False,

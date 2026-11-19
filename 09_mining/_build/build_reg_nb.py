@@ -66,7 +66,7 @@ md(r"""## 1 · Fit all models and compare on the unseen test months""")
 code(r"""
 sc = StandardScaler().fit(X[tr]); Xs_tr, Xs_te = sc.transform(X[tr]), sc.transform(X[te])
 models = {'Simple linear (temperature only)': ('lin1', LinearRegression()), 'Multiple linear': ('lin', LinearRegression()),
-          'Ridge': ('lin', RidgeCV(alphas=np.logspace(-3, 3, 13))), 'Lasso': ('lin', LassoCV(cv=5, random_state=42, n_alphas=30)),
+          'Ridge': ('lin', RidgeCV(alphas=np.logspace(-3, 3, 13))), 'Lasso': ('lin', LassoCV(cv=5, random_state=42, alphas=30)),
           'Random Forest': ('raw', RandomForestRegressor(n_estimators=200, max_depth=18, min_samples_leaf=10, n_jobs=-1, random_state=42)),
           'Gradient Boosting': ('raw', HistGradientBoostingRegressor(max_iter=400, learning_rate=0.08, random_state=42))}
 res, preds, fitted = [], {}, {}
@@ -100,7 +100,7 @@ vx = pd.DataFrame(Xs_tr[:50000], columns=X.columns)[NUM]
 vif = pd.Series([variance_inflation_factor(sm.add_constant(vx).values, i + 1) for i in range(vx.shape[1])], index=NUM, name='VIF')
 display(save_tab(vif.round(2).to_frame(), '03_vif', index=True))
 bp = het_breuschpagan(ols.resid[:50000], sm.add_constant(pd.DataFrame(Xs_tr[:50000], columns=X.columns)))
-print(f'Breusch–Pagan LM p-value = {bp[1]:.3g} → {"heteroscedastic (error size varies)" if bp[1] < 0.05 else "no evidence of heteroscedasticity"}')
+print(f'Breusch–Pagan LM p-value = {bp[1]:.3g} -> {"heteroscedastic (error size varies)" if bp[1] < 0.05 else "no evidence of heteroscedasticity"}')
 """)
 infer("R2")
 

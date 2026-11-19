@@ -1,0 +1,71 @@
+{
+  "source": "data/processed/wq_analytics_mart.parquet (built from the batch DW)",
+  "regression": {
+    "target": "dissolved oxygen (mg/L), site-day median",
+    "selected": [
+      "latitude",
+      "temperature",
+      "prev_do",
+      "ph",
+      "water_type",
+      "month_sin",
+      "month_cos",
+      "season",
+      "region"
+    ],
+    "all_scores_table": "tables/F02c_regression_consensus.csv"
+  },
+  "classification": {
+    "target": "high_risk_flag",
+    "selected": [
+      "parameter",
+      "prev_result",
+      "co_ph",
+      "latitude",
+      "prev_high_risk",
+      "has_co_do",
+      "organization",
+      "has_co_temperature",
+      "month",
+      "state",
+      "co_temperature",
+      "co_do",
+      "equipment_group",
+      "has_co_ph",
+      "time_band"
+    ],
+    "all_scores_table": "tables/F03_classification_consensus.csv"
+  },
+  "association": {
+    "outcome": "exceedance_flag",
+    "item_attributes": [
+      "region",
+      "parameter",
+      "parameter_group",
+      "equipment_group",
+      "season",
+      "water_type",
+      "time_band",
+      "is_weekend",
+      "result_band",
+      "exceedance_flag",
+      "high_risk_flag"
+    ],
+    "table": "tables/F04_association_attributes.csv"
+  },
+  "leakage_excluded": {
+    "regression": [
+      "do_val (target)",
+      "DO result_band / exceedance / high-risk flags of the same site-day (derived from the target)"
+    ],
+    "classification": [
+      "result_value",
+      "result_band",
+      "exceedance_flag",
+      "site-day median of the row's own parameter"
+    ],
+    "association": [
+      "none (descriptive mining of co-occurrence; outcome items are intended)"
+    ]
+  }
+}

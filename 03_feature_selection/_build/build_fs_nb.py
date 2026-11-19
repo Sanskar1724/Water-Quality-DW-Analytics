@@ -62,7 +62,7 @@ def save_tab(df, n, index=False): df.to_csv(TAB / f'F{n}.csv', index=index); ret
 def save_fig(n): plt.tight_layout(); plt.savefig(FIG / f'F{n}.png', dpi=130, bbox_inches='tight'); plt.show()
 con = duckdb.connect(); con.execute("SET memory_limit='3GB'")
 con.execute(f"CREATE VIEW mart AS SELECT * FROM '{MART}'")
-print(con.execute('SELECT count(*) rows, count(DISTINCT site_id) sites FROM mart').df())
+print(con.execute('SELECT count(*) AS n_rows, count(DISTINCT site_id) AS n_sites FROM mart').df())
 RNG = 42
 """)
 
@@ -75,9 +75,9 @@ Skewed parameters (turbidity, conductivity, nitrate) are log-transformed (Step 3
 code(r"""
 con.execute('''
 CREATE OR REPLACE TABLE sd AS
-SELECT site_id, sample_date, any_value(state) state, any_value(region) region, any_value(water_type) water_type,
-       mode(organization) organization, mode(sample_type_group) sample_type_group, mode(equipment_group) equipment_group,
-       any_value(month) month, any_value(season) season, any_value(day_of_week) day_of_week, any_value(latitude) latitude, any_value(longitude) longitude,
+SELECT site_id, sample_date, any_value(state) AS state, any_value(region) AS region, any_value(water_type) AS water_type,
+       mode(organization) AS organization, mode(sample_type_group) AS sample_type_group, mode(equipment_group) AS equipment_group,
+       any_value(month) AS month, any_value(season) AS season, any_value(day_of_week) AS day_of_week, any_value(latitude) AS latitude, any_value(longitude) AS longitude,
        median(result_value) FILTER (WHERE parameter = 'Dissolved oxygen') AS do_val,
        median(result_value) FILTER (WHERE parameter = 'Temperature') AS temperature,
        median(result_value) FILTER (WHERE parameter = 'pH') AS ph,
@@ -137,7 +137,7 @@ code(r"""
 Xall = pd.concat([REG_NUM[nums], pd.get_dummies(REG_CAT[['season', 'region', 'water_type', 'sample_type_group', 'equipment_group']], drop_first=True, dtype=float)], axis=1)
 Xs = StandardScaler().fit_transform(Xall.iloc[idx]);
 t = time.time()
-lasso = LassoCV(cv=5, random_state=RNG, n_alphas=40).fit(Xs, yn)
+lasso = LassoCV(cv=5, random_state=RNG, alphas=40).fit(Xs, yn)
 lasso_coef = pd.Series(lasso.coef_, index=Xall.columns)
 rfe = RFECV(LinearRegression(), step=1, cv=KFold(5, shuffle=True, random_state=RNG), scoring='r2', min_features_to_select=3).fit(Xs, yn)
 rfe_sel = pd.Series(rfe.support_, index=Xall.columns)
