@@ -1,0 +1,17 @@
+Query,Operation,Business question,Rows returned,Median ms,Min ms,Chart
+O01_rollup_geography,Roll-Up,Which regions have the highest exceedance rate when site-level results are rolled up to region level,6,1373.5,1254.4,yes
+O02_rollup_time,Roll-Up,How does the exceedance rate change when monthly results are rolled up to quarters and years,8,2002.3,1745.7,yes
+O03_drilldown_time,Drill-Down,"Within each year and quarter, which months drive the dissolved-oxygen exceedances",24,1268.6,1150.6,yes
+O04_drilldown_geography,Drill-Down,"Inside the worst state, which individual sites cause most exceedances",15,335.5,283.7,yes
+O05_slice_parameter,Slice,"For dissolved oxygen only, how does the exceedance rate vary by region and season",24,1177.2,1001.9,yes
+O06_slice_time,Slice,"In the year 2025 only, which parameters exceed their thresholds most often",6,6890.4,6587.5,yes
+O07_dice_region_season,Dice,"In the South and West, for Chemical parameters, how different are summer and winter exceedance rates",8,844.8,743.3,yes
+O08_dice_physical_surface,Dice,"For Physical parameters at surface-water sites during summer 2025, which states have the highest exceedance rate",8,320.4,270.8,yes
+O09_pivot_parameter_season,Pivot,"Shown as a parameter-by-season grid, which parameter is most seasonal",6,1258.1,1200.2,yes
+O10_pivot_region_parameter,Pivot,"Shown as a region-by-parameter grid, where is each parameter worst",6,452.1,397.4,yes
+O11_cube_month_region_group,CUBE,"Across Month x Region x ParameterGroup, what are the exceedance rates for every combination and every subtotal",670,2179.3,2026.4,yes
+O12_cube_season_group,CUBE,"Across Season x ParameterGroup, including subtotals, when and where are high-risk results concentrated",20,3906.5,3781.0,yes
+O13_grouping_sets_summary,GROUPING SETS,"In one scan, what are the exceedance rates by region, by parameter, by season and overall",17,13277.8,12479.1,yes
+O14_grouping_sets_org_method,GROUPING SETS,"Does the exceedance rate depend on the data provider, the sample type or the equipment used",10,20979.1,15456.0,yes
+O15_rollup_time_hierarchy,ROLLUP,"What are the results and exceedance rate per month, with quarter, year and grand-total subtotals",35,1599.6,1479.0,yes
+O16_rollup_parameter_hierarchy,ROLLUP,"Per characteristic, with parameter-group subtotals and a grand total, how often are thresholds exceeded",10,1644.9,1626.0,yes

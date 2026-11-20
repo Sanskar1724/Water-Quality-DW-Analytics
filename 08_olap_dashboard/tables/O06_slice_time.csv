@@ -1,0 +1,7 @@
+parameter_group,short_name,standard_unit,results,sites,exceedance_pct,high_risk_pct,median_value
+Chemical,Dissolved oxygen,mg/L,303061,23401,15.26,7.52,8.52
+Physical,Conductivity,µS/cm,39028,4801,8.69,6.5,191.05
+Physical,Turbidity,NTU,159744,14627,8.42,1.67,4.8
+Chemical,pH,pH units,284567,24444,8.15,2.45,7.88
+Physical,Temperature,°C,735498,26863,3.38,0.24,17.46
+Nutrient,Nitrate,mg/L as N,15153,2950,3.35,0.79,0.52

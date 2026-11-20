@@ -1,0 +1,11 @@
+parameter_group,characteristic,level,results,sites,exceedances,exceedance_pct,high_risk_pct
+Chemical,Dissolved oxygen,Characteristic,690164,38511,125770,18.22,8.56
+Chemical,pH,Characteristic,658268,40696,57404,8.72,2.99
+Chemical,ALL,Group subtotal,1348432,43760,183174,13.58,5.84
+Nutrient,Nitrate,Characteristic,43379,5111,1421,3.28,1.02
+Nutrient,ALL,Group subtotal,43379,5111,1421,3.28,1.02
+Physical,Conductivity,Characteristic,131417,7440,7985,6.08,4.46
+Physical,Temperature,Characteristic,1912387,44071,64652,3.38,0.23
+Physical,Turbidity,Characteristic,336418,24780,35339,10.5,2.48
+Physical,ALL,Group subtotal,2380222,46263,107976,4.54,0.78
+ALL,ALL,Grand total,3772033,49271,292571,7.76,2.59

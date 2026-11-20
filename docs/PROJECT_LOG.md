@@ -216,3 +216,9 @@ Working rule: **explain each step first, then build it, then walk through the re
 - **Results:** 23,189 events in about 150 s (≈ 9,000/min); **23,164 valid + 25 rejected** (exactly the injected invalid events); latency median 3.97 s, p99 6.86 s; 1,392 exceedances, 495 high-risk; all 8 KPIs live in Grafana.
 - **Consistency check vs batch DW (December):** results, high-risk and sites identical; exceedances differ by 1 (a corrupted test event). Two independent pipelines agree.
 - **Fixes:** a `kafka-init` service creates the topic before Spark subscribes; Kafka advertises 127.0.0.1 (Windows IPv6 issue); the event-time panel became a per-day bar chart; the map panel was replaced by alerts-by-state; poor-quality sites use a documented real-time rule (≥ 5 results, ≥ 30%).
+
+## 2026-11-20: Step 9 OLAP run + demo script
+- **What:** Merged the cloud session's `08_olap_dashboard/` (16 OLAP queries, Power BI views and build guide, findings template) and ran `olap_runner.py --views` on the batch DW. All 16 queries (roll-up, drill-down, slice, dice, pivot, CUBE, GROUPING SETS, ROLLUP) produced tables and charts; the `bi` views for Power BI were created.
+- **Example result:** roll-up to region gives Territory 24.3%, South 16.4%, Northeast 9.1%, Midwest 4.2%, West 3.5% exceedance (matches the EDA).
+- **Demo:** `docs/DEMO_SCRIPT.md`: start commands, what to show and say per step, and likely viva questions with answers.
+- **Not done:** the Power BI .pbix (to be built by the team with `POWERBI_BUILD_GUIDE.md`), OLAP interpretation text in `OLAP_OPERATIONS.md`, the Citus distributed DW (the teammate's version is used), and a written architecture evaluation folder (summary table in the demo script).

@@ -1,0 +1,16 @@
+region,state,site_id,water_type,results,exceedances,exceedance_pct,high_risk_pct
+South,Louisiana,21MSWQ_WQX-UM014,Not Reported,211,58,27.49,3.79
+South,Louisiana,21MSWQ_WQX-UM012,Not Reported,155,47,30.32,3.87
+South,Louisiana,11NPSWRD_WQX-JELA_VC-3,Not Reported,67,39,58.21,31.34
+South,Louisiana,11NPSWRD_WQX-JELA_RL-2,Not Reported,66,38,57.58,31.82
+South,Louisiana,21LABCH-CYPT1,Surface Water,59,35,59.32,0.0
+South,Louisiana,LDEQ319-5246,Not Reported,48,34,70.83,31.25
+South,Louisiana,LDEQ319-5277,Not Reported,52,34,65.38,21.15
+South,Louisiana,LDEQ319-0102,Not Reported,53,32,60.38,1.89
+South,Louisiana,11NPSWRD_WQX-JELA_BF-2,Not Reported,72,32,44.44,27.78
+South,Louisiana,LADEQWPD_WQX-1209,Not Reported,40,31,77.5,45.0
+South,Louisiana,LDEQ319-2004,Not Reported,51,31,60.78,1.96
+South,Louisiana,21LABCH-HOLLY1,Surface Water,58,31,53.45,1.72
+South,Louisiana,21LABCH-LTFL1,Surface Water,58,31,53.45,1.72
+South,Louisiana,21LABCH-HOLLY6,Surface Water,58,31,53.45,1.72
+South,Louisiana,21LABCH-MART1,Surface Water,58,31,53.45,1.72

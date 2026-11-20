@@ -1,0 +1,7 @@
+region,states,sites,results,exceedances,exceedance_pct,high_risk_pct
+Territory,2,171,12383,3003,24.25,0.47
+South,17,21119,1030882,169470,16.44,4.55
+Unknown,1,1543,13500,1665,12.33,4.69
+Northeast,9,5553,177513,16114,9.08,2.65
+Midwest,12,12558,1864051,78750,4.22,1.99
+West,13,8327,673704,23569,3.5,1.24

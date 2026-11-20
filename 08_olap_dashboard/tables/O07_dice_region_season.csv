@@ -1,0 +1,9 @@
+region,season,short_name,results,exceedance_pct,high_risk_pct,median_value
+South,Summer,Dissolved oxygen,91431,34.59,13.21,6.08
+South,Winter,Dissolved oxygen,47157,9.72,3.42,9.02
+West,Summer,Dissolved oxygen,33278,7.32,2.26,7.9
+West,Winter,Dissolved oxygen,15055,3.85,0.72,9.81
+South,Summer,pH,95061,13.37,4.78,7.36
+South,Winter,pH,50115,10.48,4.84,7.58
+West,Summer,pH,33866,3.48,1.11,8.03
+West,Winter,pH,14354,3.23,1.39,7.97

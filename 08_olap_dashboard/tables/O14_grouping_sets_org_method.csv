@@ -1,0 +1,11 @@
+dimension,member,results,organizations,exceedance_pct,high_risk_pct
+Equipment,Probe/Sensor,2364308,234,4.94,1.63
+Equipment,Other,730829,171,14.82,3.77
+Equipment,Bottle/grab sampler,668262,304,10.0,4.72
+Equipment,Pump,8634,32,7.85,2.95
+Provider,STORET,3763989,420,7.75,2.59
+Provider,NWIS,8044,48,9.88,4.54
+Sample type,Field measurement,3138257,356,7.38,2.51
+Sample type,Logger / continuous,330470,14,9.14,3.11
+Sample type,Lab sample,301615,281,10.09,2.84
+Sample type,Unknown,1691,7,11.3,10.05

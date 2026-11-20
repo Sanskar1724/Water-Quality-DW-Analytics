@@ -1,0 +1,18 @@
+dimension,member,results,sites,exceedance_pct,high_risk_pct
+Overall,ALL,3772033,49271,7.76,2.59
+Parameter,Dissolved oxygen,690164,38511,18.22,8.56
+Parameter,Turbidity,336418,24780,10.5,2.48
+Parameter,pH,658268,40696,8.72,2.99
+Parameter,Conductivity,131417,7440,6.08,4.46
+Parameter,Temperature,1912387,44071,3.38,0.23
+Parameter,Nitrate,43379,5111,3.28,1.02
+Region,Territory,12383,171,24.25,0.47
+Region,South,1030882,21119,16.44,4.55
+Region,Unknown,13500,1543,12.33,4.69
+Region,Northeast,177513,5553,9.08,2.65
+Region,Midwest,1864051,12558,4.22,1.99
+Region,West,673704,8327,3.5,1.24
+Season,Summer,1298808,36373,12.22,4.17
+Season,Autumn,704784,29967,9.12,3.05
+Season,Winter,299680,20721,6.75,2.41
+Season,Spring,1468761,31994,3.36,1.01
