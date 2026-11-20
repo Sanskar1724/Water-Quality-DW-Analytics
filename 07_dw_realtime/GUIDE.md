@@ -52,7 +52,7 @@ docker compose -f 05_dw_batch/docker-compose.yml stop
 docker compose -f 07_dw_realtime/docker-compose.yml up -d
 python 07_dw_realtime/producer/producer.py --rate 150 --inject-invalid 25
 ```
-Then open **http://localhost:3000** (Grafana) and watch the dashboard fill in. Spark's own monitoring page is at http://localhost:4040.
+Then open **http://localhost:3300** (Grafana) and watch the dashboard fill in. Spark's own monitoring page is at http://localhost:4040.
 
 ## Terms used, explained simply
 | Term | Simple meaning | Everyday analogy | In this project | Why it matters |
@@ -73,7 +73,7 @@ Then open **http://localhost:3000** (Grafana) and watch the dashboard fill in. S
 | **Checkpoint** | Spark's saved progress | A bookmark | `/tmp/checkpoints` | Restarts continue without duplicates or gaps |
 | **ClickHouse** | A very fast column-oriented analytics database | A spreadsheet that reads only the columns you ask for | `wq_rt` database | Dashboard queries in milliseconds on fresh data |
 | **MergeTree / ReplacingMergeTree** | ClickHouse table types; the second keeps only the newest version of a row | Replacing an old version of a document | events / window_agg | Window results can be updated as late data arrives |
-| **Grafana** | A live dashboard tool | A car's dashboard | `localhost:3000`, refresh 5 s | The operational monitoring screen |
+| **Grafana** | A live dashboard tool | A car's dashboard | `localhost:3300`, refresh 5 s | The operational monitoring screen |
 | **Latency** | Time from sending to being visible | Delay of a live TV broadcast | Median producer → ClickHouse time | Shows how "real-time" the system is |
 | **Alert** | A flagged event needing attention | A smoke alarm | High-risk results | The business purpose of the real-time DW |
 

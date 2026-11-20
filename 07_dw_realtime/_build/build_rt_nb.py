@@ -28,7 +28,7 @@ OUT = ROOT / '07_dw_realtime'; FIG, TAB = OUT / 'figures', OUT / 'tables'; FIG.m
 sns.set_theme(style='whitegrid'); pd.set_option('display.width', 200)
 def save_tab(df, n, index=False): df.to_csv(TAB / f'G{n}.csv', index=index); return df
 def save_fig(n): plt.tight_layout(); plt.savefig(FIG / f'G{n}.png', dpi=130, bbox_inches='tight'); plt.show()
-ch = clickhouse_connect.get_client(host='127.0.0.1', port=8123, username='wq', password='wq_local_dev', database='wq_rt')
+ch = clickhouse_connect.get_client(host='127.0.0.1', port=18123, username='wq', password='wq_local_dev', database='wq_rt')
 q = lambda sql: ch.query_df(sql)
 """)
 

@@ -21,7 +21,7 @@ docker compose -f 05_dw_batch/docker-compose.yml stop
 ```bash
 docker compose -f 07_dw_realtime/docker-compose.yml up -d
 ```
-Wait about 60 s, then open **http://localhost:3000** (Grafana). Before the live replay, empty the old run so the numbers start from 0:
+Wait about 60 s, then open **http://localhost:3300** (Grafana). Before the live replay, empty the old run so the numbers start from 0:
 ```bash
 docker exec wq_clickhouse clickhouse-client --user wq --password wq_local_dev -q "TRUNCATE TABLE wq_rt.events"
 ```
@@ -73,7 +73,7 @@ python 05_dw_batch/etl/etl_batch.py queries
 - (If asked) "We found and fixed three performance problems with `EXPLAIN`: missing statistics, a null-safe join, and a self-referencing NOT EXISTS. The fact load went from more than 10 minutes to 42 seconds."
 
 ## 6 · Real-time warehouse (3 min): **LIVE** (switch Docker as in step 0)
-Open Grafana **http://localhost:3000**, then run:
+Open Grafana **http://localhost:3300**, then run:
 ```bash
 python 07_dw_realtime/producer/producer.py --rate 150 --inject-invalid 25
 ```
