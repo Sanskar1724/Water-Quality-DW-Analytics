@@ -1,7 +1,7 @@
 # Real-time data warehouse (SIMULATION): Kafka -> Spark Structured Streaming -> ClickHouse -> Grafana
 # Historical WQP records are REPLAYED in time order by producer/producer.py; this is not a live feed.
 # Start:  docker compose -f 07_dw_realtime/docker-compose.yml up -d     (stop the batch DW first to free memory)
-# Grafana: http://localhost:3300  (anonymous viewer access; admin / wq_local_dev for editing)
+# Grafana: http://127.0.0.1:3300  (anonymous viewer access; admin / wq_local_dev for editing)
 services:
   kafka:
     image: apache/kafka:3.8.1
@@ -80,7 +80,7 @@ services:
     image: grafana/grafana:11.3.0
     container_name: wq_grafana
     depends_on: [clickhouse]
-    ports: ["3300:3000"]                  # Grafana at http://localhost:3300
+    ports: ["3300:3000"]                  # Grafana at http://127.0.0.1:3300
     environment:
       GF_INSTALL_PLUGINS: grafana-clickhouse-datasource
       GF_SECURITY_ADMIN_USER: admin

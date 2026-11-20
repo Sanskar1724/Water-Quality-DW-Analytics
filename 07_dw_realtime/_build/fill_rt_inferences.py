@@ -46,7 +46,7 @@ INF = {
 
   plus pipeline latency, rejected events and the Spark event-time windows.
 - The **SIMULATION banner** makes clear that this is a historical replay, as the brief requires.
-- **For the live demo:** start the stack, run `producer.py`, and watch the numbers climb in Grafana (http://localhost:3300).""",
+- **For the live demo:** start the stack, run `producer.py`, and watch the numbers climb in Grafana (http://127.0.0.1:3300).""",
 }
 nb = nbf.read(P, as_version=4); n = 0
 for c in nb.cells:
