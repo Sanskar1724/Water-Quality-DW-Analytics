@@ -29,16 +29,16 @@ stat('KPI 1 · Results / minute (now)', 4, f'SELECT count() FROM {E} WHERE inges
 stat('KPI 4 · Exceedances', 8, f'SELECT sum(exceedance_flag) FROM {E}', 'orange', 'Results breaking the documented exceedance threshold')
 stat('KPI 3 · High-risk observations', 12, f'SELECT sum(high_risk_flag) FROM {E}', 'red', 'Results breaking the stricter high-risk threshold')
 stat('Rejected by validation', 16, 'SELECT count() FROM wq_rt.rejected', 'dark-red', 'Events that failed Spark validation rules')
-stat('Pipeline latency (median, s)', 20, f"SELECT round(quantile(0.5)(dateDiff('millisecond', produced_at, ingested_at)) / 1000, 2) FROM {E} WHERE ingested_at > now64(3) - INTERVAL 5 MINUTE",
+stat('Pipeline latency (median, s)', 20, f"SELECT round(quantile(0.5)(dateDiff('millisecond', produced_at, ingested_at)) / 1000, 2) FROM {E} WHERE $__timeFilter(ingested_at)",
      'green', 'Producer send → stored in ClickHouse', unit='s')
 
 panel('timeseries', 'KPI 1 · Results per minute during replay (10-second buckets × 6)', 0, 7, 12, 8,
       f"SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, count() * 6 AS results_per_minute FROM {E} "
-      "WHERE ingested_at > now64(3) - INTERVAL 10 MINUTE GROUP BY time ORDER BY time", ts=True,
+      "WHERE $__timeFilter(ingested_at) GROUP BY time ORDER BY time", ts=True,
       fieldConfig={'defaults': {'custom': {'drawStyle': 'bars', 'fillOpacity': 60}}, 'overrides': []})
 panel('timeseries', 'KPI 4 · Exceedances per 10 s by parameter', 12, 7, 12, 8,
       f"SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, characteristic, sum(exceedance_flag) AS exceedances FROM {E} "
-      "WHERE ingested_at > now64(3) - INTERVAL 10 MINUTE GROUP BY time, characteristic ORDER BY time", ts=True)
+      "WHERE $__timeFilter(ingested_at) GROUP BY time, characteristic ORDER BY time", ts=True)
 
 panel('table', 'KPI 2 · Current parameter values (latest replayed result)', 0, 15, 9, 8,
       f"SELECT characteristic AS parameter, round(argMax(result_value, (event_time, ingested_at)), 2) AS latest_value, any(unit) AS unit, "

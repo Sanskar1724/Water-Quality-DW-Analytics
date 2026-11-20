@@ -304,7 +304,7 @@
           "editorType": "sql",
           "format": 1,
           "queryType": "table",
-          "rawSql": "SELECT round(quantile(0.5)(dateDiff('millisecond', produced_at, ingested_at)) / 1000, 2) FROM wq_rt.events WHERE ingested_at > now64(3) - INTERVAL 5 MINUTE"
+          "rawSql": "SELECT round(quantile(0.5)(dateDiff('millisecond', produced_at, ingested_at)) / 1000, 2) FROM wq_rt.events WHERE $__timeFilter(ingested_at)"
         }
       ],
       "fieldConfig": {
@@ -353,7 +353,7 @@
           "editorType": "sql",
           "format": 0,
           "queryType": "timeseries",
-          "rawSql": "SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, count() * 6 AS results_per_minute FROM wq_rt.events WHERE ingested_at > now64(3) - INTERVAL 10 MINUTE GROUP BY time ORDER BY time"
+          "rawSql": "SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, count() * 6 AS results_per_minute FROM wq_rt.events WHERE $__timeFilter(ingested_at) GROUP BY time ORDER BY time"
         }
       ],
       "fieldConfig": {
@@ -391,7 +391,7 @@
           "editorType": "sql",
           "format": 0,
           "queryType": "timeseries",
-          "rawSql": "SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, characteristic, sum(exceedance_flag) AS exceedances FROM wq_rt.events WHERE ingested_at > now64(3) - INTERVAL 10 MINUTE GROUP BY time, characteristic ORDER BY time"
+          "rawSql": "SELECT toStartOfInterval(ingested_at, INTERVAL 10 SECOND) AS time, characteristic, sum(exceedance_flag) AS exceedances FROM wq_rt.events WHERE $__timeFilter(ingested_at) GROUP BY time, characteristic ORDER BY time"
         }
       ]
     },
